@@ -1,0 +1,1502 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Model.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="accounts">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LOGIN" Type="longtext" Nullable="false" />
+          <Property Name="PASSWORD" Type="varchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="admins">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EMPLOYEE_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cashiers">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EMPLOYEE_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="clients">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAME" Type="varchar" MaxLength="45" />
+          <Property Name="SURNAME" Type="varchar" MaxLength="45" />
+          <Property Name="BIRTH_DATE" Type="datetime" Precision="0" />
+          <Property Name="PIN" Type="varchar" MaxLength="45" />
+          <Property Name="SEX" Type="varchar" MaxLength="45" />
+          <Property Name="ACCOUNT_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="coaches">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EMPLOYEE_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="dates">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DATE" Type="datetime" Precision="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="employees">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAME" Type="varchar" MaxLength="45" />
+          <Property Name="SURNAME" Type="varchar" MaxLength="45" />
+          <Property Name="BIRTH_DATE" Type="datetime" Precision="0" />
+          <Property Name="PIN" Type="varchar" MaxLength="45" />
+          <Property Name="SEX" Type="char" MaxLength="1" />
+          <Property Name="PHONE_NR" Type="varchar" MaxLength="12" />
+          <Property Name="EMAIL" Type="varchar" MaxLength="45" />
+          <Property Name="ACCOUNT_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="events">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAME" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="DESCRIPTION" Type="text" />
+          <Property Name="CREATOR_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="facilities">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CAPACITY" Type="uint" Nullable="false" />
+          <Property Name="NAME" Type="varchar" MaxLength="45" />
+          <Property Name="RESERVABLE" Type="bool" />
+          <Property Name="PARENT_FACILITY" Type="int" />
+        </EntityType>
+        <EntityType Name="leads">
+          <Key>
+            <PropertyRef Name="COACH_ID" />
+            <PropertyRef Name="TRAINING_ID" />
+          </Key>
+          <Property Name="COACH_ID" Type="int" Nullable="false" />
+          <Property Name="TRAINING_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="price_lists">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAME" Type="longtext" />
+          <Property Name="PRICE_ALGORITHM" Type="longtext" />
+          <Property Name="CREATOR_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="reservation_dates">
+          <Key>
+            <PropertyRef Name="RESERVATION_ID" />
+          </Key>
+          <Property Name="RESERVATION_ID" Type="int" Nullable="false" />
+          <Property Name="DATE_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="reservation_views">
+          <Key>
+            <PropertyRef Name="RESERVATION_ID" />
+            <PropertyRef Name="SCHEDULE_ID" />
+          </Key>
+          <Property Name="RESERVATION_ID" Type="int" Nullable="false" />
+          <Property Name="SCHEDULE_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="reservations">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CREATOR_ID" Type="int" Nullable="false" />
+          <Property Name="TRAINING_ID" Type="int" />
+          <Property Name="FACILITY_ID" Type="int" Nullable="false" />
+          <Property Name="EVENT_ID" Type="int" />
+          <Property Name="ACCEPTER_ID" Type="int" />
+          <Property Name="ACCEPTED" Type="bool" />
+        </EntityType>
+        <EntityType Name="sales">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DATE" Type="date" Nullable="false" />
+          <Property Name="CLIENT_ID" Type="int" />
+          <Property Name="CASHIER_ID" Type="int" />
+          <Property Name="PRICE_LIST_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="schedules">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAME" Type="varchar" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="services">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DESCRIPTION" Type="longtext" />
+          <Property Name="FACILITIES_ID" Type="int" />
+          <Property Name="TRAINING_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="subscriptions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SERVICE_ID" Type="int" Nullable="false" />
+          <Property Name="EXPIRATION_DATE" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tickets">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SERVICE_ID" Type="int" Nullable="false" />
+          <Property Name="EVENT_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="trainings">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DESCRIPTION" Type="longtext" />
+          <Property Name="NAME" Type="varchar" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="transactions">
+          <Key>
+            <PropertyRef Name="SERVICE_ID" />
+            <PropertyRef Name="SALE_ID" />
+          </Key>
+          <Property Name="SERVICE_ID" Type="int" Nullable="false" />
+          <Property Name="SALE_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="ADMINS:EMPLOYEE_ID">
+          <End Role="employees" Type="Self.employees" Multiplicity="1" />
+          <End Role="admins" Type="Self.admins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employees">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="admins">
+              <PropertyRef Name="EMPLOYEE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CASHIERS:EMPLOYEE_ID">
+          <End Role="employees" Type="Self.employees" Multiplicity="1" />
+          <End Role="cashiers" Type="Self.cashiers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employees">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="cashiers">
+              <PropertyRef Name="EMPLOYEE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CLIENTS:ACCOUNT_ID">
+          <End Role="accounts" Type="Self.accounts" Multiplicity="0..1" />
+          <End Role="clients" Type="Self.clients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="accounts">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="clients">
+              <PropertyRef Name="ACCOUNT_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="COACHES:EMPLOYEE_ID">
+          <End Role="employees" Type="Self.employees" Multiplicity="1" />
+          <End Role="coaches" Type="Self.coaches" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employees">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="coaches">
+              <PropertyRef Name="EMPLOYEE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="EMPLOYEES:ACCOUNT_ID">
+          <End Role="accounts" Type="Self.accounts" Multiplicity="0..1" />
+          <End Role="employees" Type="Self.employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="accounts">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="employees">
+              <PropertyRef Name="ACCOUNT_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="EVENTS:CREATOR_ID">
+          <End Role="admins" Type="Self.admins" Multiplicity="1" />
+          <End Role="events" Type="Self.events" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="admins">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="events">
+              <PropertyRef Name="CREATOR_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FACILITIES:PARENT_FACILITY">
+          <End Role="facilities" Type="Self.facilities" Multiplicity="0..1" />
+          <End Role="facilities1" Type="Self.facilities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="facilities">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="facilities1">
+              <PropertyRef Name="PARENT_FACILITY" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="LEADS:COACH_ID">
+          <End Role="coaches" Type="Self.coaches" Multiplicity="1" />
+          <End Role="leads" Type="Self.leads" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="coaches">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="leads">
+              <PropertyRef Name="COACH_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="LEADS:TRAINING_ID">
+          <End Role="trainings" Type="Self.trainings" Multiplicity="1" />
+          <End Role="leads" Type="Self.leads" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="trainings">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="leads">
+              <PropertyRef Name="TRAINING_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PRICE_LISTS:CREATOR_ID">
+          <End Role="admins" Type="Self.admins" Multiplicity="1" />
+          <End Role="price_lists" Type="Self.price_lists" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="admins">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="price_lists">
+              <PropertyRef Name="CREATOR_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RESERVATION_DATES:DATE_ID">
+          <End Role="dates" Type="Self.dates" Multiplicity="0..1" />
+          <End Role="reservation_dates" Type="Self.reservation_dates" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dates">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="reservation_dates">
+              <PropertyRef Name="DATE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RESERVATION_DATES:RESERVATION_ID">
+          <End Role="reservations" Type="Self.reservations" Multiplicity="1" />
+          <End Role="reservation_dates" Type="Self.reservation_dates" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="reservations">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="reservation_dates">
+              <PropertyRef Name="RESERVATION_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RESERVATION_VIEWS:RESERVATION_ID">
+          <End Role="reservations" Type="Self.reservations" Multiplicity="1" />
+          <End Role="reservation_views" Type="Self.reservation_views" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="reservations">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="reservation_views">
+              <PropertyRef Name="RESERVATION_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RESERVATION_VIEWS:SCHEDULE_ID">
+          <End Role="schedules" Type="Self.schedules" Multiplicity="1" />
+          <End Role="reservation_views" Type="Self.reservation_views" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="schedules">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="reservation_views">
+              <PropertyRef Name="SCHEDULE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RESERVATIONS:ADMIN_ID">
+          <End Role="admins" Type="Self.admins" Multiplicity="0..1" />
+          <End Role="reservations" Type="Self.reservations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="admins">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="reservations">
+              <PropertyRef Name="ACCEPTER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RESERVATIONS:COACH_ID">
+          <End Role="employees" Type="Self.employees" Multiplicity="1" />
+          <End Role="reservations" Type="Self.reservations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employees">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="reservations">
+              <PropertyRef Name="CREATOR_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RESERVATIONS:EVENT_ID">
+          <End Role="events" Type="Self.events" Multiplicity="0..1" />
+          <End Role="reservations" Type="Self.reservations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="events">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="reservations">
+              <PropertyRef Name="EVENT_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RESERVATIONS:FACILITY_ID">
+          <End Role="facilities" Type="Self.facilities" Multiplicity="1" />
+          <End Role="reservations" Type="Self.reservations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="facilities">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="reservations">
+              <PropertyRef Name="FACILITY_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RESERVATIONS:TRAINING_ID">
+          <End Role="trainings" Type="Self.trainings" Multiplicity="0..1" />
+          <End Role="reservations" Type="Self.reservations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="trainings">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="reservations">
+              <PropertyRef Name="TRAINING_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SALES:CASHIER_ID">
+          <End Role="cashiers" Type="Self.cashiers" Multiplicity="0..1" />
+          <End Role="sales" Type="Self.sales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cashiers">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="sales">
+              <PropertyRef Name="CASHIER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SALES:CLIENT_ID">
+          <End Role="clients" Type="Self.clients" Multiplicity="0..1" />
+          <End Role="sales" Type="Self.sales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clients">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="sales">
+              <PropertyRef Name="CLIENT_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SALES:PRICE_LIST_ID">
+          <End Role="price_lists" Type="Self.price_lists" Multiplicity="1" />
+          <End Role="sales" Type="Self.sales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="price_lists">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="sales">
+              <PropertyRef Name="PRICE_LIST_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SERVICES:TRAINING_ID">
+          <End Role="trainings" Type="Self.trainings" Multiplicity="0..1" />
+          <End Role="services" Type="Self.services" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="trainings">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="services">
+              <PropertyRef Name="TRAINING_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SUBSCRIPTIONS:SERVICE_ID">
+          <End Role="services" Type="Self.services" Multiplicity="1" />
+          <End Role="subscriptions" Type="Self.subscriptions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="services">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="subscriptions">
+              <PropertyRef Name="SERVICE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TICKETS:EVENT_ID">
+          <End Role="events" Type="Self.events" Multiplicity="0..1" />
+          <End Role="tickets" Type="Self.tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="events">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tickets">
+              <PropertyRef Name="EVENT_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TICKETS:SERVICE_ID">
+          <End Role="services" Type="Self.services" Multiplicity="1" />
+          <End Role="tickets" Type="Self.tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="services">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tickets">
+              <PropertyRef Name="SERVICE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TRANSACTIONS:SALE_ID">
+          <End Role="sales" Type="Self.sales" Multiplicity="1" />
+          <End Role="transactions" Type="Self.transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sales">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="transactions">
+              <PropertyRef Name="SALE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TRANSACTIONS:SERVICE_ID">
+          <End Role="services" Type="Self.services" Multiplicity="1" />
+          <End Role="transactions" Type="Self.transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="services">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="transactions">
+              <PropertyRef Name="SERVICE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="accounts" EntityType="Self.accounts" Schema="osrodeksportowydb" store:Type="Tables" />
+          <EntitySet Name="admins" EntityType="Self.admins" Schema="osrodeksportowydb" store:Type="Tables" />
+          <EntitySet Name="cashiers" EntityType="Self.cashiers" Schema="osrodeksportowydb" store:Type="Tables" />
+          <EntitySet Name="clients" EntityType="Self.clients" Schema="osrodeksportowydb" store:Type="Tables" />
+          <EntitySet Name="coaches" EntityType="Self.coaches" Schema="osrodeksportowydb" store:Type="Tables" />
+          <EntitySet Name="dates" EntityType="Self.dates" Schema="osrodeksportowydb" store:Type="Tables" />
+          <EntitySet Name="employees" EntityType="Self.employees" Schema="osrodeksportowydb" store:Type="Tables" />
+          <EntitySet Name="events" EntityType="Self.events" Schema="osrodeksportowydb" store:Type="Tables" />
+          <EntitySet Name="facilities" EntityType="Self.facilities" Schema="osrodeksportowydb" store:Type="Tables" />
+          <EntitySet Name="leads" EntityType="Self.leads" Schema="osrodeksportowydb" store:Type="Tables" />
+          <EntitySet Name="price_lists" EntityType="Self.price_lists" Schema="osrodeksportowydb" store:Type="Tables" />
+          <EntitySet Name="reservation_dates" EntityType="Self.reservation_dates" Schema="osrodeksportowydb" store:Type="Tables" />
+          <EntitySet Name="reservation_views" EntityType="Self.reservation_views" Schema="osrodeksportowydb" store:Type="Tables" />
+          <EntitySet Name="reservations" EntityType="Self.reservations" Schema="osrodeksportowydb" store:Type="Tables" />
+          <EntitySet Name="sales" EntityType="Self.sales" Schema="osrodeksportowydb" store:Type="Tables" />
+          <EntitySet Name="schedules" EntityType="Self.schedules" Schema="osrodeksportowydb" store:Type="Tables" />
+          <EntitySet Name="services" EntityType="Self.services" Schema="osrodeksportowydb" store:Type="Tables" />
+          <EntitySet Name="subscriptions" EntityType="Self.subscriptions" Schema="osrodeksportowydb" store:Type="Tables" />
+          <EntitySet Name="tickets" EntityType="Self.tickets" Schema="osrodeksportowydb" store:Type="Tables" />
+          <EntitySet Name="trainings" EntityType="Self.trainings" Schema="osrodeksportowydb" store:Type="Tables" />
+          <EntitySet Name="transactions" EntityType="Self.transactions" Schema="osrodeksportowydb" store:Type="Tables" />
+          <AssociationSet Name="ADMINS:EMPLOYEE_ID" Association="Self.ADMINS:EMPLOYEE_ID">
+            <End Role="employees" EntitySet="employees" />
+            <End Role="admins" EntitySet="admins" />
+          </AssociationSet>
+          <AssociationSet Name="CASHIERS:EMPLOYEE_ID" Association="Self.CASHIERS:EMPLOYEE_ID">
+            <End Role="employees" EntitySet="employees" />
+            <End Role="cashiers" EntitySet="cashiers" />
+          </AssociationSet>
+          <AssociationSet Name="CLIENTS:ACCOUNT_ID" Association="Self.CLIENTS:ACCOUNT_ID">
+            <End Role="accounts" EntitySet="accounts" />
+            <End Role="clients" EntitySet="clients" />
+          </AssociationSet>
+          <AssociationSet Name="COACHES:EMPLOYEE_ID" Association="Self.COACHES:EMPLOYEE_ID">
+            <End Role="employees" EntitySet="employees" />
+            <End Role="coaches" EntitySet="coaches" />
+          </AssociationSet>
+          <AssociationSet Name="EMPLOYEES:ACCOUNT_ID" Association="Self.EMPLOYEES:ACCOUNT_ID">
+            <End Role="accounts" EntitySet="accounts" />
+            <End Role="employees" EntitySet="employees" />
+          </AssociationSet>
+          <AssociationSet Name="EVENTS:CREATOR_ID" Association="Self.EVENTS:CREATOR_ID">
+            <End Role="admins" EntitySet="admins" />
+            <End Role="events" EntitySet="events" />
+          </AssociationSet>
+          <AssociationSet Name="FACILITIES:PARENT_FACILITY" Association="Self.FACILITIES:PARENT_FACILITY">
+            <End Role="facilities" EntitySet="facilities" />
+            <End Role="facilities1" EntitySet="facilities" />
+          </AssociationSet>
+          <AssociationSet Name="LEADS:COACH_ID" Association="Self.LEADS:COACH_ID">
+            <End Role="coaches" EntitySet="coaches" />
+            <End Role="leads" EntitySet="leads" />
+          </AssociationSet>
+          <AssociationSet Name="LEADS:TRAINING_ID" Association="Self.LEADS:TRAINING_ID">
+            <End Role="trainings" EntitySet="trainings" />
+            <End Role="leads" EntitySet="leads" />
+          </AssociationSet>
+          <AssociationSet Name="PRICE_LISTS:CREATOR_ID" Association="Self.PRICE_LISTS:CREATOR_ID">
+            <End Role="admins" EntitySet="admins" />
+            <End Role="price_lists" EntitySet="price_lists" />
+          </AssociationSet>
+          <AssociationSet Name="RESERVATION_DATES:DATE_ID" Association="Self.RESERVATION_DATES:DATE_ID">
+            <End Role="dates" EntitySet="dates" />
+            <End Role="reservation_dates" EntitySet="reservation_dates" />
+          </AssociationSet>
+          <AssociationSet Name="RESERVATION_DATES:RESERVATION_ID" Association="Self.RESERVATION_DATES:RESERVATION_ID">
+            <End Role="reservations" EntitySet="reservations" />
+            <End Role="reservation_dates" EntitySet="reservation_dates" />
+          </AssociationSet>
+          <AssociationSet Name="RESERVATION_VIEWS:RESERVATION_ID" Association="Self.RESERVATION_VIEWS:RESERVATION_ID">
+            <End Role="reservations" EntitySet="reservations" />
+            <End Role="reservation_views" EntitySet="reservation_views" />
+          </AssociationSet>
+          <AssociationSet Name="RESERVATION_VIEWS:SCHEDULE_ID" Association="Self.RESERVATION_VIEWS:SCHEDULE_ID">
+            <End Role="schedules" EntitySet="schedules" />
+            <End Role="reservation_views" EntitySet="reservation_views" />
+          </AssociationSet>
+          <AssociationSet Name="RESERVATIONS:ADMIN_ID" Association="Self.RESERVATIONS:ADMIN_ID">
+            <End Role="admins" EntitySet="admins" />
+            <End Role="reservations" EntitySet="reservations" />
+          </AssociationSet>
+          <AssociationSet Name="RESERVATIONS:COACH_ID" Association="Self.RESERVATIONS:COACH_ID">
+            <End Role="employees" EntitySet="employees" />
+            <End Role="reservations" EntitySet="reservations" />
+          </AssociationSet>
+          <AssociationSet Name="RESERVATIONS:EVENT_ID" Association="Self.RESERVATIONS:EVENT_ID">
+            <End Role="events" EntitySet="events" />
+            <End Role="reservations" EntitySet="reservations" />
+          </AssociationSet>
+          <AssociationSet Name="RESERVATIONS:FACILITY_ID" Association="Self.RESERVATIONS:FACILITY_ID">
+            <End Role="facilities" EntitySet="facilities" />
+            <End Role="reservations" EntitySet="reservations" />
+          </AssociationSet>
+          <AssociationSet Name="RESERVATIONS:TRAINING_ID" Association="Self.RESERVATIONS:TRAINING_ID">
+            <End Role="trainings" EntitySet="trainings" />
+            <End Role="reservations" EntitySet="reservations" />
+          </AssociationSet>
+          <AssociationSet Name="SALES:CASHIER_ID" Association="Self.SALES:CASHIER_ID">
+            <End Role="cashiers" EntitySet="cashiers" />
+            <End Role="sales" EntitySet="sales" />
+          </AssociationSet>
+          <AssociationSet Name="SALES:CLIENT_ID" Association="Self.SALES:CLIENT_ID">
+            <End Role="clients" EntitySet="clients" />
+            <End Role="sales" EntitySet="sales" />
+          </AssociationSet>
+          <AssociationSet Name="SALES:PRICE_LIST_ID" Association="Self.SALES:PRICE_LIST_ID">
+            <End Role="price_lists" EntitySet="price_lists" />
+            <End Role="sales" EntitySet="sales" />
+          </AssociationSet>
+          <AssociationSet Name="SERVICES:TRAINING_ID" Association="Self.SERVICES:TRAINING_ID">
+            <End Role="trainings" EntitySet="trainings" />
+            <End Role="services" EntitySet="services" />
+          </AssociationSet>
+          <AssociationSet Name="SUBSCRIPTIONS:SERVICE_ID" Association="Self.SUBSCRIPTIONS:SERVICE_ID">
+            <End Role="services" EntitySet="services" />
+            <End Role="subscriptions" EntitySet="subscriptions" />
+          </AssociationSet>
+          <AssociationSet Name="TICKETS:EVENT_ID" Association="Self.TICKETS:EVENT_ID">
+            <End Role="events" EntitySet="events" />
+            <End Role="tickets" EntitySet="tickets" />
+          </AssociationSet>
+          <AssociationSet Name="TICKETS:SERVICE_ID" Association="Self.TICKETS:SERVICE_ID">
+            <End Role="services" EntitySet="services" />
+            <End Role="tickets" EntitySet="tickets" />
+          </AssociationSet>
+          <AssociationSet Name="TRANSACTIONS:SALE_ID" Association="Self.TRANSACTIONS:SALE_ID">
+            <End Role="sales" EntitySet="sales" />
+            <End Role="transactions" EntitySet="transactions" />
+          </AssociationSet>
+          <AssociationSet Name="TRANSACTIONS:SERVICE_ID" Association="Self.TRANSACTIONS:SERVICE_ID">
+            <End Role="services" EntitySet="services" />
+            <End Role="transactions" EntitySet="transactions" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="accounts">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LOGIN" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PASSWORD" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="clients" Relationship="Self.CLIENTS_ACCOUNT_ID" FromRole="accounts" ToRole="clients" />
+          <NavigationProperty Name="employees" Relationship="Self.EMPLOYEES_ACCOUNT_ID" FromRole="accounts" ToRole="employees" />
+        </EntityType>
+        <EntityType Name="admins">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EMPLOYEE_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="employees" Relationship="Self.ADMINS_EMPLOYEE_ID" FromRole="admins" ToRole="employees" />
+          <NavigationProperty Name="events" Relationship="Self.EVENTS_CREATOR_ID" FromRole="admins" ToRole="events" />
+          <NavigationProperty Name="price_lists" Relationship="Self.PRICE_LISTS_CREATOR_ID" FromRole="admins" ToRole="price_lists" />
+          <NavigationProperty Name="reservations" Relationship="Self.RESERVATIONS_ADMIN_ID" FromRole="admins" ToRole="reservations" />
+        </EntityType>
+        <EntityType Name="cashiers">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EMPLOYEE_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="employees" Relationship="Self.CASHIERS_EMPLOYEE_ID" FromRole="cashiers" ToRole="employees" />
+          <NavigationProperty Name="sales" Relationship="Self.SALES_CASHIER_ID" FromRole="cashiers" ToRole="sales" />
+        </EntityType>
+        <EntityType Name="clients">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="SURNAME" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="BIRTH_DATE" Type="DateTime" />
+          <Property Name="PIN" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="SEX" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="ACCOUNT_ID" Type="Int32" />
+          <NavigationProperty Name="accounts" Relationship="Self.CLIENTS_ACCOUNT_ID" FromRole="clients" ToRole="accounts" />
+          <NavigationProperty Name="sales" Relationship="Self.SALES_CLIENT_ID" FromRole="clients" ToRole="sales" />
+        </EntityType>
+        <EntityType Name="coaches">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EMPLOYEE_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="employees" Relationship="Self.COACHES_EMPLOYEE_ID" FromRole="coaches" ToRole="employees" />
+          <NavigationProperty Name="trainings" Relationship="Self.leads" FromRole="coaches" ToRole="trainings" />
+        </EntityType>
+        <EntityType Name="dates">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DATE" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="reservation_dates" Relationship="Self.RESERVATION_DATES_DATE_ID" FromRole="dates" ToRole="reservation_dates" />
+        </EntityType>
+        <EntityType Name="employees">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="SURNAME" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="BIRTH_DATE" Type="DateTime" />
+          <Property Name="PIN" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="SEX" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="PHONE_NR" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="EMAIL" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="ACCOUNT_ID" Type="Int32" />
+          <NavigationProperty Name="accounts" Relationship="Self.EMPLOYEES_ACCOUNT_ID" FromRole="employees" ToRole="accounts" />
+          <NavigationProperty Name="admins" Relationship="Self.ADMINS_EMPLOYEE_ID" FromRole="employees" ToRole="admins" />
+          <NavigationProperty Name="cashiers" Relationship="Self.CASHIERS_EMPLOYEE_ID" FromRole="employees" ToRole="cashiers" />
+          <NavigationProperty Name="coaches" Relationship="Self.COACHES_EMPLOYEE_ID" FromRole="employees" ToRole="coaches" />
+          <NavigationProperty Name="reservations" Relationship="Self.RESERVATIONS_COACH_ID" FromRole="employees" ToRole="reservations" />
+        </EntityType>
+        <EntityType Name="events">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DESCRIPTION" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="CREATOR_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="admins" Relationship="Self.EVENTS_CREATOR_ID" FromRole="events" ToRole="admins" />
+          <NavigationProperty Name="reservations" Relationship="Self.RESERVATIONS_EVENT_ID" FromRole="events" ToRole="reservations" />
+          <NavigationProperty Name="tickets" Relationship="Self.TICKETS_EVENT_ID" FromRole="events" ToRole="tickets" />
+        </EntityType>
+        <EntityType Name="facilities">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CAPACITY" Type="Int64" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="RESERVABLE" Type="Boolean" />
+          <Property Name="PARENT_FACILITY" Type="Int32" />
+          <NavigationProperty Name="facilities1" Relationship="Self.FACILITIES_PARENT_FACILITY" FromRole="facilities" ToRole="facilities1" />
+          <NavigationProperty Name="facilities2" Relationship="Self.FACILITIES_PARENT_FACILITY" FromRole="facilities1" ToRole="facilities" />
+          <NavigationProperty Name="reservations" Relationship="Self.RESERVATIONS_FACILITY_ID" FromRole="facilities" ToRole="reservations" />
+        </EntityType>
+        <EntityType Name="price_lists">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="PRICE_ALGORITHM" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="CREATOR_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="admins" Relationship="Self.PRICE_LISTS_CREATOR_ID" FromRole="price_lists" ToRole="admins" />
+          <NavigationProperty Name="sales" Relationship="Self.SALES_PRICE_LIST_ID" FromRole="price_lists" ToRole="sales" />
+        </EntityType>
+        <EntityType Name="reservation_dates">
+          <Key>
+            <PropertyRef Name="RESERVATION_ID" />
+          </Key>
+          <Property Name="RESERVATION_ID" Type="Int32" Nullable="false" />
+          <Property Name="DATE_ID" Type="Int32" />
+          <NavigationProperty Name="dates" Relationship="Self.RESERVATION_DATES_DATE_ID" FromRole="reservation_dates" ToRole="dates" />
+          <NavigationProperty Name="reservations" Relationship="Self.RESERVATION_DATES_RESERVATION_ID" FromRole="reservation_dates" ToRole="reservations" />
+        </EntityType>
+        <EntityType Name="reservations">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CREATOR_ID" Type="Int32" Nullable="false" />
+          <Property Name="TRAINING_ID" Type="Int32" />
+          <Property Name="FACILITY_ID" Type="Int32" Nullable="false" />
+          <Property Name="EVENT_ID" Type="Int32" />
+          <Property Name="ACCEPTER_ID" Type="Int32" />
+          <Property Name="ACCEPTED" Type="Boolean" />
+          <NavigationProperty Name="admins" Relationship="Self.RESERVATIONS_ADMIN_ID" FromRole="reservations" ToRole="admins" />
+          <NavigationProperty Name="employees" Relationship="Self.RESERVATIONS_COACH_ID" FromRole="reservations" ToRole="employees" />
+          <NavigationProperty Name="events" Relationship="Self.RESERVATIONS_EVENT_ID" FromRole="reservations" ToRole="events" />
+          <NavigationProperty Name="facilities" Relationship="Self.RESERVATIONS_FACILITY_ID" FromRole="reservations" ToRole="facilities" />
+          <NavigationProperty Name="reservation_dates" Relationship="Self.RESERVATION_DATES_RESERVATION_ID" FromRole="reservations" ToRole="reservation_dates" />
+          <NavigationProperty Name="trainings" Relationship="Self.RESERVATIONS_TRAINING_ID" FromRole="reservations" ToRole="trainings" />
+          <NavigationProperty Name="schedules" Relationship="Self.reservation_views" FromRole="reservations" ToRole="schedules" />
+        </EntityType>
+        <EntityType Name="sales">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DATE" Type="DateTime" Nullable="false" />
+          <Property Name="CLIENT_ID" Type="Int32" />
+          <Property Name="CASHIER_ID" Type="Int32" />
+          <Property Name="PRICE_LIST_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="cashiers" Relationship="Self.SALES_CASHIER_ID" FromRole="sales" ToRole="cashiers" />
+          <NavigationProperty Name="clients" Relationship="Self.SALES_CLIENT_ID" FromRole="sales" ToRole="clients" />
+          <NavigationProperty Name="price_lists" Relationship="Self.SALES_PRICE_LIST_ID" FromRole="sales" ToRole="price_lists" />
+          <NavigationProperty Name="services" Relationship="Self.transactions" FromRole="sales" ToRole="services" />
+        </EntityType>
+        <EntityType Name="schedules">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="reservations" Relationship="Self.reservation_views" FromRole="schedules" ToRole="reservations" />
+        </EntityType>
+        <EntityType Name="services">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DESCRIPTION" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="FACILITIES_ID" Type="Int32" />
+          <Property Name="TRAINING_ID" Type="Int32" />
+          <NavigationProperty Name="trainings" Relationship="Self.SERVICES_TRAINING_ID" FromRole="services" ToRole="trainings" />
+          <NavigationProperty Name="subscriptions" Relationship="Self.SUBSCRIPTIONS_SERVICE_ID" FromRole="services" ToRole="subscriptions" />
+          <NavigationProperty Name="tickets" Relationship="Self.TICKETS_SERVICE_ID" FromRole="services" ToRole="tickets" />
+          <NavigationProperty Name="sales" Relationship="Self.transactions" FromRole="services" ToRole="sales" />
+        </EntityType>
+        <EntityType Name="subscriptions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SERVICE_ID" Type="Int32" Nullable="false" />
+          <Property Name="EXPIRATION_DATE" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="services" Relationship="Self.SUBSCRIPTIONS_SERVICE_ID" FromRole="subscriptions" ToRole="services" />
+        </EntityType>
+        <EntityType Name="tickets">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SERVICE_ID" Type="Int32" Nullable="false" />
+          <Property Name="EVENT_ID" Type="Int32" />
+          <NavigationProperty Name="events" Relationship="Self.TICKETS_EVENT_ID" FromRole="tickets" ToRole="events" />
+          <NavigationProperty Name="services" Relationship="Self.TICKETS_SERVICE_ID" FromRole="tickets" ToRole="services" />
+        </EntityType>
+        <EntityType Name="trainings">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DESCRIPTION" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="NAME" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="reservations" Relationship="Self.RESERVATIONS_TRAINING_ID" FromRole="trainings" ToRole="reservations" />
+          <NavigationProperty Name="services" Relationship="Self.SERVICES_TRAINING_ID" FromRole="trainings" ToRole="services" />
+          <NavigationProperty Name="coaches" Relationship="Self.leads" FromRole="trainings" ToRole="coaches" />
+        </EntityType>
+        <Association Name="CLIENTS_ACCOUNT_ID">
+          <End Role="accounts" Type="Self.accounts" Multiplicity="0..1" />
+          <End Role="clients" Type="Self.clients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="accounts">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="clients">
+              <PropertyRef Name="ACCOUNT_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="EMPLOYEES_ACCOUNT_ID">
+          <End Role="accounts" Type="Self.accounts" Multiplicity="0..1" />
+          <End Role="employees" Type="Self.employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="accounts">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="employees">
+              <PropertyRef Name="ACCOUNT_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ADMINS_EMPLOYEE_ID">
+          <End Role="employees" Type="Self.employees" Multiplicity="1" />
+          <End Role="admins" Type="Self.admins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employees">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="admins">
+              <PropertyRef Name="EMPLOYEE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="EVENTS_CREATOR_ID">
+          <End Role="admins" Type="Self.admins" Multiplicity="1" />
+          <End Role="events" Type="Self.events" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="admins">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="events">
+              <PropertyRef Name="CREATOR_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PRICE_LISTS_CREATOR_ID">
+          <End Role="admins" Type="Self.admins" Multiplicity="1" />
+          <End Role="price_lists" Type="Self.price_lists" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="admins">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="price_lists">
+              <PropertyRef Name="CREATOR_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RESERVATIONS_ADMIN_ID">
+          <End Role="admins" Type="Self.admins" Multiplicity="0..1" />
+          <End Role="reservations" Type="Self.reservations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="admins">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="reservations">
+              <PropertyRef Name="ACCEPTER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CASHIERS_EMPLOYEE_ID">
+          <End Role="employees" Type="Self.employees" Multiplicity="1" />
+          <End Role="cashiers" Type="Self.cashiers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employees">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="cashiers">
+              <PropertyRef Name="EMPLOYEE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SALES_CASHIER_ID">
+          <End Role="cashiers" Type="Self.cashiers" Multiplicity="0..1" />
+          <End Role="sales" Type="Self.sales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cashiers">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="sales">
+              <PropertyRef Name="CASHIER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SALES_CLIENT_ID">
+          <End Role="clients" Type="Self.clients" Multiplicity="0..1" />
+          <End Role="sales" Type="Self.sales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clients">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="sales">
+              <PropertyRef Name="CLIENT_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="COACHES_EMPLOYEE_ID">
+          <End Role="employees" Type="Self.employees" Multiplicity="1" />
+          <End Role="coaches" Type="Self.coaches" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employees">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="coaches">
+              <PropertyRef Name="EMPLOYEE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RESERVATION_DATES_DATE_ID">
+          <End Role="dates" Type="Self.dates" Multiplicity="0..1" />
+          <End Role="reservation_dates" Type="Self.reservation_dates" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dates">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="reservation_dates">
+              <PropertyRef Name="DATE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RESERVATIONS_COACH_ID">
+          <End Role="employees" Type="Self.employees" Multiplicity="1" />
+          <End Role="reservations" Type="Self.reservations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employees">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="reservations">
+              <PropertyRef Name="CREATOR_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RESERVATIONS_EVENT_ID">
+          <End Role="events" Type="Self.events" Multiplicity="0..1" />
+          <End Role="reservations" Type="Self.reservations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="events">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="reservations">
+              <PropertyRef Name="EVENT_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TICKETS_EVENT_ID">
+          <End Role="events" Type="Self.events" Multiplicity="0..1" />
+          <End Role="tickets" Type="Self.tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="events">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tickets">
+              <PropertyRef Name="EVENT_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FACILITIES_PARENT_FACILITY">
+          <End Role="facilities" Type="Self.facilities" Multiplicity="0..1" />
+          <End Role="facilities1" Type="Self.facilities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="facilities">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="facilities1">
+              <PropertyRef Name="PARENT_FACILITY" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RESERVATIONS_FACILITY_ID">
+          <End Role="facilities" Type="Self.facilities" Multiplicity="1" />
+          <End Role="reservations" Type="Self.reservations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="facilities">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="reservations">
+              <PropertyRef Name="FACILITY_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SALES_PRICE_LIST_ID">
+          <End Role="price_lists" Type="Self.price_lists" Multiplicity="1" />
+          <End Role="sales" Type="Self.sales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="price_lists">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="sales">
+              <PropertyRef Name="PRICE_LIST_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RESERVATION_DATES_RESERVATION_ID">
+          <End Role="reservations" Type="Self.reservations" Multiplicity="1" />
+          <End Role="reservation_dates" Type="Self.reservation_dates" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="reservations">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="reservation_dates">
+              <PropertyRef Name="RESERVATION_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RESERVATIONS_TRAINING_ID">
+          <End Role="trainings" Type="Self.trainings" Multiplicity="0..1" />
+          <End Role="reservations" Type="Self.reservations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="trainings">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="reservations">
+              <PropertyRef Name="TRAINING_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SERVICES_TRAINING_ID">
+          <End Role="trainings" Type="Self.trainings" Multiplicity="0..1" />
+          <End Role="services" Type="Self.services" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="trainings">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="services">
+              <PropertyRef Name="TRAINING_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SUBSCRIPTIONS_SERVICE_ID">
+          <End Role="services" Type="Self.services" Multiplicity="1" />
+          <End Role="subscriptions" Type="Self.subscriptions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="services">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="subscriptions">
+              <PropertyRef Name="SERVICE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TICKETS_SERVICE_ID">
+          <End Role="services" Type="Self.services" Multiplicity="1" />
+          <End Role="tickets" Type="Self.tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="services">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tickets">
+              <PropertyRef Name="SERVICE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="leads">
+          <End Role="coaches" Type="Self.coaches" Multiplicity="*" />
+          <End Role="trainings" Type="Self.trainings" Multiplicity="*" />
+        </Association>
+        <Association Name="reservation_views">
+          <End Role="reservations" Type="Self.reservations" Multiplicity="*" />
+          <End Role="schedules" Type="Self.schedules" Multiplicity="*" />
+        </Association>
+        <Association Name="transactions">
+          <End Role="sales" Type="Self.sales" Multiplicity="*" />
+          <End Role="services" Type="Self.services" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="DatabaseConnection" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="accounts" EntityType="Self.accounts" />
+          <EntitySet Name="admins" EntityType="Self.admins" />
+          <EntitySet Name="cashiers" EntityType="Self.cashiers" />
+          <EntitySet Name="clients" EntityType="Self.clients" />
+          <EntitySet Name="coaches" EntityType="Self.coaches" />
+          <EntitySet Name="dates" EntityType="Self.dates" />
+          <EntitySet Name="employees" EntityType="Self.employees" />
+          <EntitySet Name="events" EntityType="Self.events" />
+          <EntitySet Name="facilities" EntityType="Self.facilities" />
+          <EntitySet Name="price_lists" EntityType="Self.price_lists" />
+          <EntitySet Name="reservation_dates" EntityType="Self.reservation_dates" />
+          <EntitySet Name="reservations" EntityType="Self.reservations" />
+          <EntitySet Name="sales" EntityType="Self.sales" />
+          <EntitySet Name="schedules" EntityType="Self.schedules" />
+          <EntitySet Name="services" EntityType="Self.services" />
+          <EntitySet Name="subscriptions" EntityType="Self.subscriptions" />
+          <EntitySet Name="tickets" EntityType="Self.tickets" />
+          <EntitySet Name="trainings" EntityType="Self.trainings" />
+          <AssociationSet Name="CLIENTS_ACCOUNT_ID" Association="Self.CLIENTS_ACCOUNT_ID">
+            <End Role="accounts" EntitySet="accounts" />
+            <End Role="clients" EntitySet="clients" />
+          </AssociationSet>
+          <AssociationSet Name="EMPLOYEES_ACCOUNT_ID" Association="Self.EMPLOYEES_ACCOUNT_ID">
+            <End Role="accounts" EntitySet="accounts" />
+            <End Role="employees" EntitySet="employees" />
+          </AssociationSet>
+          <AssociationSet Name="ADMINS_EMPLOYEE_ID" Association="Self.ADMINS_EMPLOYEE_ID">
+            <End Role="employees" EntitySet="employees" />
+            <End Role="admins" EntitySet="admins" />
+          </AssociationSet>
+          <AssociationSet Name="EVENTS_CREATOR_ID" Association="Self.EVENTS_CREATOR_ID">
+            <End Role="admins" EntitySet="admins" />
+            <End Role="events" EntitySet="events" />
+          </AssociationSet>
+          <AssociationSet Name="PRICE_LISTS_CREATOR_ID" Association="Self.PRICE_LISTS_CREATOR_ID">
+            <End Role="admins" EntitySet="admins" />
+            <End Role="price_lists" EntitySet="price_lists" />
+          </AssociationSet>
+          <AssociationSet Name="RESERVATIONS_ADMIN_ID" Association="Self.RESERVATIONS_ADMIN_ID">
+            <End Role="admins" EntitySet="admins" />
+            <End Role="reservations" EntitySet="reservations" />
+          </AssociationSet>
+          <AssociationSet Name="CASHIERS_EMPLOYEE_ID" Association="Self.CASHIERS_EMPLOYEE_ID">
+            <End Role="employees" EntitySet="employees" />
+            <End Role="cashiers" EntitySet="cashiers" />
+          </AssociationSet>
+          <AssociationSet Name="SALES_CASHIER_ID" Association="Self.SALES_CASHIER_ID">
+            <End Role="cashiers" EntitySet="cashiers" />
+            <End Role="sales" EntitySet="sales" />
+          </AssociationSet>
+          <AssociationSet Name="SALES_CLIENT_ID" Association="Self.SALES_CLIENT_ID">
+            <End Role="clients" EntitySet="clients" />
+            <End Role="sales" EntitySet="sales" />
+          </AssociationSet>
+          <AssociationSet Name="COACHES_EMPLOYEE_ID" Association="Self.COACHES_EMPLOYEE_ID">
+            <End Role="employees" EntitySet="employees" />
+            <End Role="coaches" EntitySet="coaches" />
+          </AssociationSet>
+          <AssociationSet Name="RESERVATION_DATES_DATE_ID" Association="Self.RESERVATION_DATES_DATE_ID">
+            <End Role="dates" EntitySet="dates" />
+            <End Role="reservation_dates" EntitySet="reservation_dates" />
+          </AssociationSet>
+          <AssociationSet Name="RESERVATIONS_COACH_ID" Association="Self.RESERVATIONS_COACH_ID">
+            <End Role="employees" EntitySet="employees" />
+            <End Role="reservations" EntitySet="reservations" />
+          </AssociationSet>
+          <AssociationSet Name="RESERVATIONS_EVENT_ID" Association="Self.RESERVATIONS_EVENT_ID">
+            <End Role="events" EntitySet="events" />
+            <End Role="reservations" EntitySet="reservations" />
+          </AssociationSet>
+          <AssociationSet Name="TICKETS_EVENT_ID" Association="Self.TICKETS_EVENT_ID">
+            <End Role="events" EntitySet="events" />
+            <End Role="tickets" EntitySet="tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FACILITIES_PARENT_FACILITY" Association="Self.FACILITIES_PARENT_FACILITY">
+            <End Role="facilities" EntitySet="facilities" />
+            <End Role="facilities1" EntitySet="facilities" />
+          </AssociationSet>
+          <AssociationSet Name="RESERVATIONS_FACILITY_ID" Association="Self.RESERVATIONS_FACILITY_ID">
+            <End Role="facilities" EntitySet="facilities" />
+            <End Role="reservations" EntitySet="reservations" />
+          </AssociationSet>
+          <AssociationSet Name="SALES_PRICE_LIST_ID" Association="Self.SALES_PRICE_LIST_ID">
+            <End Role="price_lists" EntitySet="price_lists" />
+            <End Role="sales" EntitySet="sales" />
+          </AssociationSet>
+          <AssociationSet Name="RESERVATION_DATES_RESERVATION_ID" Association="Self.RESERVATION_DATES_RESERVATION_ID">
+            <End Role="reservations" EntitySet="reservations" />
+            <End Role="reservation_dates" EntitySet="reservation_dates" />
+          </AssociationSet>
+          <AssociationSet Name="RESERVATIONS_TRAINING_ID" Association="Self.RESERVATIONS_TRAINING_ID">
+            <End Role="trainings" EntitySet="trainings" />
+            <End Role="reservations" EntitySet="reservations" />
+          </AssociationSet>
+          <AssociationSet Name="SERVICES_TRAINING_ID" Association="Self.SERVICES_TRAINING_ID">
+            <End Role="trainings" EntitySet="trainings" />
+            <End Role="services" EntitySet="services" />
+          </AssociationSet>
+          <AssociationSet Name="SUBSCRIPTIONS_SERVICE_ID" Association="Self.SUBSCRIPTIONS_SERVICE_ID">
+            <End Role="services" EntitySet="services" />
+            <End Role="subscriptions" EntitySet="subscriptions" />
+          </AssociationSet>
+          <AssociationSet Name="TICKETS_SERVICE_ID" Association="Self.TICKETS_SERVICE_ID">
+            <End Role="services" EntitySet="services" />
+            <End Role="tickets" EntitySet="tickets" />
+          </AssociationSet>
+          <AssociationSet Name="leads" Association="Self.leads">
+            <End Role="coaches" EntitySet="coaches" />
+            <End Role="trainings" EntitySet="trainings" />
+          </AssociationSet>
+          <AssociationSet Name="reservation_views" Association="Self.reservation_views">
+            <End Role="reservations" EntitySet="reservations" />
+            <End Role="schedules" EntitySet="schedules" />
+          </AssociationSet>
+          <AssociationSet Name="transactions" Association="Self.transactions">
+            <End Role="sales" EntitySet="sales" />
+            <End Role="services" EntitySet="services" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="DatabaseConnection">
+          <EntitySetMapping Name="accounts">
+            <EntityTypeMapping TypeName="Model.accounts">
+              <MappingFragment StoreEntitySet="accounts">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="LOGIN" ColumnName="LOGIN" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="admins">
+            <EntityTypeMapping TypeName="Model.admins">
+              <MappingFragment StoreEntitySet="admins">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="EMPLOYEE_ID" ColumnName="EMPLOYEE_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cashiers">
+            <EntityTypeMapping TypeName="Model.cashiers">
+              <MappingFragment StoreEntitySet="cashiers">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="EMPLOYEE_ID" ColumnName="EMPLOYEE_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="clients">
+            <EntityTypeMapping TypeName="Model.clients">
+              <MappingFragment StoreEntitySet="clients">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="SURNAME" ColumnName="SURNAME" />
+                <ScalarProperty Name="BIRTH_DATE" ColumnName="BIRTH_DATE" />
+                <ScalarProperty Name="PIN" ColumnName="PIN" />
+                <ScalarProperty Name="SEX" ColumnName="SEX" />
+                <ScalarProperty Name="ACCOUNT_ID" ColumnName="ACCOUNT_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="coaches">
+            <EntityTypeMapping TypeName="Model.coaches">
+              <MappingFragment StoreEntitySet="coaches">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="EMPLOYEE_ID" ColumnName="EMPLOYEE_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dates">
+            <EntityTypeMapping TypeName="Model.dates">
+              <MappingFragment StoreEntitySet="dates">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DATE" ColumnName="DATE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="employees">
+            <EntityTypeMapping TypeName="Model.employees">
+              <MappingFragment StoreEntitySet="employees">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="SURNAME" ColumnName="SURNAME" />
+                <ScalarProperty Name="BIRTH_DATE" ColumnName="BIRTH_DATE" />
+                <ScalarProperty Name="PIN" ColumnName="PIN" />
+                <ScalarProperty Name="SEX" ColumnName="SEX" />
+                <ScalarProperty Name="PHONE_NR" ColumnName="PHONE_NR" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="ACCOUNT_ID" ColumnName="ACCOUNT_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="events">
+            <EntityTypeMapping TypeName="Model.events">
+              <MappingFragment StoreEntitySet="events">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="CREATOR_ID" ColumnName="CREATOR_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="facilities">
+            <EntityTypeMapping TypeName="Model.facilities">
+              <MappingFragment StoreEntitySet="facilities">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CAPACITY" ColumnName="CAPACITY" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="RESERVABLE" ColumnName="RESERVABLE" />
+                <ScalarProperty Name="PARENT_FACILITY" ColumnName="PARENT_FACILITY" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="price_lists">
+            <EntityTypeMapping TypeName="Model.price_lists">
+              <MappingFragment StoreEntitySet="price_lists">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="PRICE_ALGORITHM" ColumnName="PRICE_ALGORITHM" />
+                <ScalarProperty Name="CREATOR_ID" ColumnName="CREATOR_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="reservation_dates">
+            <EntityTypeMapping TypeName="Model.reservation_dates">
+              <MappingFragment StoreEntitySet="reservation_dates">
+                <ScalarProperty Name="RESERVATION_ID" ColumnName="RESERVATION_ID" />
+                <ScalarProperty Name="DATE_ID" ColumnName="DATE_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="reservations">
+            <EntityTypeMapping TypeName="Model.reservations">
+              <MappingFragment StoreEntitySet="reservations">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CREATOR_ID" ColumnName="CREATOR_ID" />
+                <ScalarProperty Name="TRAINING_ID" ColumnName="TRAINING_ID" />
+                <ScalarProperty Name="FACILITY_ID" ColumnName="FACILITY_ID" />
+                <ScalarProperty Name="EVENT_ID" ColumnName="EVENT_ID" />
+                <ScalarProperty Name="ACCEPTER_ID" ColumnName="ACCEPTER_ID" />
+                <ScalarProperty Name="ACCEPTED" ColumnName="ACCEPTED" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sales">
+            <EntityTypeMapping TypeName="Model.sales">
+              <MappingFragment StoreEntitySet="sales">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DATE" ColumnName="DATE" />
+                <ScalarProperty Name="CLIENT_ID" ColumnName="CLIENT_ID" />
+                <ScalarProperty Name="CASHIER_ID" ColumnName="CASHIER_ID" />
+                <ScalarProperty Name="PRICE_LIST_ID" ColumnName="PRICE_LIST_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="schedules">
+            <EntityTypeMapping TypeName="Model.schedules">
+              <MappingFragment StoreEntitySet="schedules">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="services">
+            <EntityTypeMapping TypeName="Model.services">
+              <MappingFragment StoreEntitySet="services">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="FACILITIES_ID" ColumnName="FACILITIES_ID" />
+                <ScalarProperty Name="TRAINING_ID" ColumnName="TRAINING_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="subscriptions">
+            <EntityTypeMapping TypeName="Model.subscriptions">
+              <MappingFragment StoreEntitySet="subscriptions">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SERVICE_ID" ColumnName="SERVICE_ID" />
+                <ScalarProperty Name="EXPIRATION_DATE" ColumnName="EXPIRATION_DATE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tickets">
+            <EntityTypeMapping TypeName="Model.tickets">
+              <MappingFragment StoreEntitySet="tickets">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SERVICE_ID" ColumnName="SERVICE_ID" />
+                <ScalarProperty Name="EVENT_ID" ColumnName="EVENT_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="trainings">
+            <EntityTypeMapping TypeName="Model.trainings">
+              <MappingFragment StoreEntitySet="trainings">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="leads" TypeName="Model.leads" StoreEntitySet="leads">
+            <EndProperty Name="coaches">
+              <ScalarProperty Name="ID" ColumnName="COACH_ID" />
+            </EndProperty>
+            <EndProperty Name="trainings">
+              <ScalarProperty Name="ID" ColumnName="TRAINING_ID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="reservation_views" TypeName="Model.reservation_views" StoreEntitySet="reservation_views">
+            <EndProperty Name="reservations">
+              <ScalarProperty Name="ID" ColumnName="RESERVATION_ID" />
+            </EndProperty>
+            <EndProperty Name="schedules">
+              <ScalarProperty Name="ID" ColumnName="SCHEDULE_ID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="transactions" TypeName="Model.transactions" StoreEntitySet="transactions">
+            <EndProperty Name="sales">
+              <ScalarProperty Name="ID" ColumnName="SALE_ID" />
+            </EndProperty>
+            <EndProperty Name="services">
+              <ScalarProperty Name="ID" ColumnName="SERVICE_ID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

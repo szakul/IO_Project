@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e253dcb97e4b4dcdadec6d00b60e09ce" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.accounts" Width="1.5" PointX="0.75" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.admins" Width="1.5" PointX="5.25" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.cashiers" Width="1.5" PointX="5.25" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.clients" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.coaches" Width="1.5" PointX="5.25" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.dates" Width="1.5" PointX="12.75" PointY="17.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.employees" Width="1.5" PointX="3" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.events" Width="1.5" PointX="7.5" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.facilities" Width="1.5" PointX="7.5" PointY="19.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.price_lists" Width="1.5" PointX="7.5" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.reservation_dates" Width="1.5" PointX="15" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.reservations" Width="1.5" PointX="9.75" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.sales" Width="1.5" PointX="9.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.schedules" Width="1.5" PointX="12" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.services" Width="1.5" PointX="12" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.subscriptions" Width="1.5" PointX="14.25" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tickets" Width="1.5" PointX="14.25" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.trainings" Width="1.5" PointX="7.5" PointY="15.5" IsExpanded="true" />
+        <AssociationConnector Association="Model.CLIENTS_ACCOUNT_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.EMPLOYEES_ACCOUNT_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.ADMINS_EMPLOYEE_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.EVENTS_CREATOR_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.PRICE_LISTS_CREATOR_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.RESERVATIONS_ADMIN_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.CASHIERS_EMPLOYEE_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.SALES_CASHIER_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.SALES_CLIENT_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.COACHES_EMPLOYEE_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.RESERVATION_DATES_DATE_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.RESERVATIONS_COACH_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.RESERVATIONS_EVENT_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.TICKETS_EVENT_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FACILITIES_PARENT_FACILITY" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.RESERVATIONS_FACILITY_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.SALES_PRICE_LIST_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.RESERVATION_DATES_RESERVATION_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.RESERVATIONS_TRAINING_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.SERVICES_TRAINING_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.SUBSCRIPTIONS_SERVICE_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.TICKETS_SERVICE_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.leads" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.reservation_views" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.transactions" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
