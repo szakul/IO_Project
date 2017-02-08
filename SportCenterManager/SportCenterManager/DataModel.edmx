@@ -38,6 +38,7 @@
           <Property Name="PIN" Type="varchar" MaxLength="45" />
           <Property Name="SEX" Type="varchar" MaxLength="45" />
           <Property Name="ACCOUNT_ID" Type="int" />
+          <Property Name="MONEY" Type="int" />
         </EntityType>
         <EntityType Name="coaches">
           <Key>
@@ -45,13 +46,6 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EMPLOYEE_ID" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="dates">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="DATE" Type="datetime" Precision="0" Nullable="false" />
         </EntityType>
         <EntityType Name="employees">
           <Key>
@@ -103,13 +97,6 @@
           <Property Name="PRICE_ALGORITHM" Type="longtext" />
           <Property Name="CREATOR_ID" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="reservation_dates">
-          <Key>
-            <PropertyRef Name="RESERVATION_ID" />
-          </Key>
-          <Property Name="RESERVATION_ID" Type="int" Nullable="false" />
-          <Property Name="DATE_ID" Type="int" />
-        </EntityType>
         <EntityType Name="reservation_views">
           <Key>
             <PropertyRef Name="RESERVATION_ID" />
@@ -129,6 +116,8 @@
           <Property Name="EVENT_ID" Type="int" />
           <Property Name="ACCEPTER_ID" Type="int" />
           <Property Name="ACCEPTED" Type="bool" />
+          <Property Name="START" Type="datetime" Precision="0" />
+          <Property Name="END" Type="datetime" Precision="0" />
         </EntityType>
         <EntityType Name="sales">
           <Key>
@@ -155,6 +144,7 @@
           <Property Name="DESCRIPTION" Type="longtext" />
           <Property Name="FACILITIES_ID" Type="int" />
           <Property Name="TRAINING_ID" Type="int" />
+          <Property Name="BASE PRICE" Type="int" />
         </EntityType>
         <EntityType Name="subscriptions">
           <Key>
@@ -308,30 +298,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="RESERVATION_DATES:DATE_ID">
-          <End Role="dates" Type="Self.dates" Multiplicity="0..1" />
-          <End Role="reservation_dates" Type="Self.reservation_dates" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="dates">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="reservation_dates">
-              <PropertyRef Name="DATE_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="RESERVATION_DATES:RESERVATION_ID">
-          <End Role="reservations" Type="Self.reservations" Multiplicity="1" />
-          <End Role="reservation_dates" Type="Self.reservation_dates" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="reservations">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="reservation_dates">
-              <PropertyRef Name="RESERVATION_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="RESERVATION_VIEWS:RESERVATION_ID">
           <End Role="reservations" Type="Self.reservations" Multiplicity="1" />
           <End Role="reservation_views" Type="Self.reservation_views" Multiplicity="*" />
@@ -368,7 +334,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="RESERVATIONS:COACH_ID">
+        <Association Name="RESERVATIONS:CREATOR_ID">
           <End Role="employees" Type="Self.employees" Multiplicity="1" />
           <End Role="reservations" Type="Self.reservations" Multiplicity="*" />
           <ReferentialConstraint>
@@ -530,13 +496,11 @@
           <EntitySet Name="cashiers" EntityType="Self.cashiers" Schema="osrodeksportowydb" store:Type="Tables" />
           <EntitySet Name="clients" EntityType="Self.clients" Schema="osrodeksportowydb" store:Type="Tables" />
           <EntitySet Name="coaches" EntityType="Self.coaches" Schema="osrodeksportowydb" store:Type="Tables" />
-          <EntitySet Name="dates" EntityType="Self.dates" Schema="osrodeksportowydb" store:Type="Tables" />
           <EntitySet Name="employees" EntityType="Self.employees" Schema="osrodeksportowydb" store:Type="Tables" />
           <EntitySet Name="events" EntityType="Self.events" Schema="osrodeksportowydb" store:Type="Tables" />
           <EntitySet Name="facilities" EntityType="Self.facilities" Schema="osrodeksportowydb" store:Type="Tables" />
           <EntitySet Name="leads" EntityType="Self.leads" Schema="osrodeksportowydb" store:Type="Tables" />
           <EntitySet Name="price_lists" EntityType="Self.price_lists" Schema="osrodeksportowydb" store:Type="Tables" />
-          <EntitySet Name="reservation_dates" EntityType="Self.reservation_dates" Schema="osrodeksportowydb" store:Type="Tables" />
           <EntitySet Name="reservation_views" EntityType="Self.reservation_views" Schema="osrodeksportowydb" store:Type="Tables" />
           <EntitySet Name="reservations" EntityType="Self.reservations" Schema="osrodeksportowydb" store:Type="Tables" />
           <EntitySet Name="sales" EntityType="Self.sales" Schema="osrodeksportowydb" store:Type="Tables" />
@@ -586,14 +550,6 @@
             <End Role="admins" EntitySet="admins" />
             <End Role="price_lists" EntitySet="price_lists" />
           </AssociationSet>
-          <AssociationSet Name="RESERVATION_DATES:DATE_ID" Association="Self.RESERVATION_DATES:DATE_ID">
-            <End Role="dates" EntitySet="dates" />
-            <End Role="reservation_dates" EntitySet="reservation_dates" />
-          </AssociationSet>
-          <AssociationSet Name="RESERVATION_DATES:RESERVATION_ID" Association="Self.RESERVATION_DATES:RESERVATION_ID">
-            <End Role="reservations" EntitySet="reservations" />
-            <End Role="reservation_dates" EntitySet="reservation_dates" />
-          </AssociationSet>
           <AssociationSet Name="RESERVATION_VIEWS:RESERVATION_ID" Association="Self.RESERVATION_VIEWS:RESERVATION_ID">
             <End Role="reservations" EntitySet="reservations" />
             <End Role="reservation_views" EntitySet="reservation_views" />
@@ -606,7 +562,7 @@
             <End Role="admins" EntitySet="admins" />
             <End Role="reservations" EntitySet="reservations" />
           </AssociationSet>
-          <AssociationSet Name="RESERVATIONS:COACH_ID" Association="Self.RESERVATIONS:COACH_ID">
+          <AssociationSet Name="RESERVATIONS:CREATOR_ID" Association="Self.RESERVATIONS:CREATOR_ID">
             <End Role="employees" EntitySet="employees" />
             <End Role="reservations" EntitySet="reservations" />
           </AssociationSet>
@@ -705,6 +661,7 @@
           <Property Name="PIN" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="SEX" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="ACCOUNT_ID" Type="Int32" />
+          <Property Name="MONEY" Type="Int32" />
           <NavigationProperty Name="accounts" Relationship="Self.CLIENTS_ACCOUNT_ID" FromRole="clients" ToRole="accounts" />
           <NavigationProperty Name="sales" Relationship="Self.SALES_CLIENT_ID" FromRole="clients" ToRole="sales" />
         </EntityType>
@@ -716,14 +673,6 @@
           <Property Name="EMPLOYEE_ID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="employees" Relationship="Self.COACHES_EMPLOYEE_ID" FromRole="coaches" ToRole="employees" />
           <NavigationProperty Name="trainings" Relationship="Self.leads" FromRole="coaches" ToRole="trainings" />
-        </EntityType>
-        <EntityType Name="dates">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DATE" Type="DateTime" Nullable="false" />
-          <NavigationProperty Name="reservation_dates" Relationship="Self.RESERVATION_DATES_DATE_ID" FromRole="dates" ToRole="reservation_dates" />
         </EntityType>
         <EntityType Name="employees">
           <Key>
@@ -742,7 +691,7 @@
           <NavigationProperty Name="admins" Relationship="Self.ADMINS_EMPLOYEE_ID" FromRole="employees" ToRole="admins" />
           <NavigationProperty Name="cashiers" Relationship="Self.CASHIERS_EMPLOYEE_ID" FromRole="employees" ToRole="cashiers" />
           <NavigationProperty Name="coaches" Relationship="Self.COACHES_EMPLOYEE_ID" FromRole="employees" ToRole="coaches" />
-          <NavigationProperty Name="reservations" Relationship="Self.RESERVATIONS_COACH_ID" FromRole="employees" ToRole="reservations" />
+          <NavigationProperty Name="reservations" Relationship="Self.RESERVATIONS_CREATOR_ID" FromRole="employees" ToRole="reservations" />
         </EntityType>
         <EntityType Name="events">
           <Key>
@@ -780,15 +729,6 @@
           <NavigationProperty Name="admins" Relationship="Self.PRICE_LISTS_CREATOR_ID" FromRole="price_lists" ToRole="admins" />
           <NavigationProperty Name="sales" Relationship="Self.SALES_PRICE_LIST_ID" FromRole="price_lists" ToRole="sales" />
         </EntityType>
-        <EntityType Name="reservation_dates">
-          <Key>
-            <PropertyRef Name="RESERVATION_ID" />
-          </Key>
-          <Property Name="RESERVATION_ID" Type="Int32" Nullable="false" />
-          <Property Name="DATE_ID" Type="Int32" />
-          <NavigationProperty Name="dates" Relationship="Self.RESERVATION_DATES_DATE_ID" FromRole="reservation_dates" ToRole="dates" />
-          <NavigationProperty Name="reservations" Relationship="Self.RESERVATION_DATES_RESERVATION_ID" FromRole="reservation_dates" ToRole="reservations" />
-        </EntityType>
         <EntityType Name="reservations">
           <Key>
             <PropertyRef Name="ID" />
@@ -800,11 +740,12 @@
           <Property Name="EVENT_ID" Type="Int32" />
           <Property Name="ACCEPTER_ID" Type="Int32" />
           <Property Name="ACCEPTED" Type="Boolean" />
+          <Property Name="START" Type="DateTime" />
+          <Property Name="END" Type="DateTime" />
           <NavigationProperty Name="admins" Relationship="Self.RESERVATIONS_ADMIN_ID" FromRole="reservations" ToRole="admins" />
-          <NavigationProperty Name="employees" Relationship="Self.RESERVATIONS_COACH_ID" FromRole="reservations" ToRole="employees" />
+          <NavigationProperty Name="employees" Relationship="Self.RESERVATIONS_CREATOR_ID" FromRole="reservations" ToRole="employees" />
           <NavigationProperty Name="events" Relationship="Self.RESERVATIONS_EVENT_ID" FromRole="reservations" ToRole="events" />
           <NavigationProperty Name="facilities" Relationship="Self.RESERVATIONS_FACILITY_ID" FromRole="reservations" ToRole="facilities" />
-          <NavigationProperty Name="reservation_dates" Relationship="Self.RESERVATION_DATES_RESERVATION_ID" FromRole="reservations" ToRole="reservation_dates" />
           <NavigationProperty Name="trainings" Relationship="Self.RESERVATIONS_TRAINING_ID" FromRole="reservations" ToRole="trainings" />
           <NavigationProperty Name="schedules" Relationship="Self.reservation_views" FromRole="reservations" ToRole="schedules" />
         </EntityType>
@@ -838,6 +779,7 @@
           <Property Name="DESCRIPTION" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
           <Property Name="FACILITIES_ID" Type="Int32" />
           <Property Name="TRAINING_ID" Type="Int32" />
+          <Property Name="BASE_PRICE" Type="Int32" />
           <NavigationProperty Name="trainings" Relationship="Self.SERVICES_TRAINING_ID" FromRole="services" ToRole="trainings" />
           <NavigationProperty Name="subscriptions" Relationship="Self.SUBSCRIPTIONS_SERVICE_ID" FromRole="services" ToRole="subscriptions" />
           <NavigationProperty Name="tickets" Relationship="Self.TICKETS_SERVICE_ID" FromRole="services" ToRole="tickets" />
@@ -993,19 +935,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="RESERVATION_DATES_DATE_ID">
-          <End Role="dates" Type="Self.dates" Multiplicity="0..1" />
-          <End Role="reservation_dates" Type="Self.reservation_dates" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="dates">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="reservation_dates">
-              <PropertyRef Name="DATE_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="RESERVATIONS_COACH_ID">
+        <Association Name="RESERVATIONS_CREATOR_ID">
           <End Role="employees" Type="Self.employees" Multiplicity="1" />
           <End Role="reservations" Type="Self.reservations" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1077,18 +1007,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="RESERVATION_DATES_RESERVATION_ID">
-          <End Role="reservations" Type="Self.reservations" Multiplicity="1" />
-          <End Role="reservation_dates" Type="Self.reservation_dates" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="reservations">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="reservation_dates">
-              <PropertyRef Name="RESERVATION_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="RESERVATIONS_TRAINING_ID">
           <End Role="trainings" Type="Self.trainings" Multiplicity="0..1" />
           <End Role="reservations" Type="Self.reservations" Multiplicity="*" />
@@ -1155,12 +1073,10 @@
           <EntitySet Name="cashiers" EntityType="Self.cashiers" />
           <EntitySet Name="clients" EntityType="Self.clients" />
           <EntitySet Name="coaches" EntityType="Self.coaches" />
-          <EntitySet Name="dates" EntityType="Self.dates" />
           <EntitySet Name="employees" EntityType="Self.employees" />
           <EntitySet Name="events" EntityType="Self.events" />
           <EntitySet Name="facilities" EntityType="Self.facilities" />
           <EntitySet Name="price_lists" EntityType="Self.price_lists" />
-          <EntitySet Name="reservation_dates" EntityType="Self.reservation_dates" />
           <EntitySet Name="reservations" EntityType="Self.reservations" />
           <EntitySet Name="sales" EntityType="Self.sales" />
           <EntitySet Name="schedules" EntityType="Self.schedules" />
@@ -1208,11 +1124,7 @@
             <End Role="employees" EntitySet="employees" />
             <End Role="coaches" EntitySet="coaches" />
           </AssociationSet>
-          <AssociationSet Name="RESERVATION_DATES_DATE_ID" Association="Self.RESERVATION_DATES_DATE_ID">
-            <End Role="dates" EntitySet="dates" />
-            <End Role="reservation_dates" EntitySet="reservation_dates" />
-          </AssociationSet>
-          <AssociationSet Name="RESERVATIONS_COACH_ID" Association="Self.RESERVATIONS_COACH_ID">
+          <AssociationSet Name="RESERVATIONS_CREATOR_ID" Association="Self.RESERVATIONS_CREATOR_ID">
             <End Role="employees" EntitySet="employees" />
             <End Role="reservations" EntitySet="reservations" />
           </AssociationSet>
@@ -1235,10 +1147,6 @@
           <AssociationSet Name="SALES_PRICE_LIST_ID" Association="Self.SALES_PRICE_LIST_ID">
             <End Role="price_lists" EntitySet="price_lists" />
             <End Role="sales" EntitySet="sales" />
-          </AssociationSet>
-          <AssociationSet Name="RESERVATION_DATES_RESERVATION_ID" Association="Self.RESERVATION_DATES_RESERVATION_ID">
-            <End Role="reservations" EntitySet="reservations" />
-            <End Role="reservation_dates" EntitySet="reservation_dates" />
           </AssociationSet>
           <AssociationSet Name="RESERVATIONS_TRAINING_ID" Association="Self.RESERVATIONS_TRAINING_ID">
             <End Role="trainings" EntitySet="trainings" />
@@ -1310,6 +1218,7 @@
                 <ScalarProperty Name="PIN" ColumnName="PIN" />
                 <ScalarProperty Name="SEX" ColumnName="SEX" />
                 <ScalarProperty Name="ACCOUNT_ID" ColumnName="ACCOUNT_ID" />
+                <ScalarProperty Name="MONEY" ColumnName="MONEY" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1318,14 +1227,6 @@
               <MappingFragment StoreEntitySet="coaches">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="EMPLOYEE_ID" ColumnName="EMPLOYEE_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="dates">
-            <EntityTypeMapping TypeName="Model.dates">
-              <MappingFragment StoreEntitySet="dates">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="DATE" ColumnName="DATE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1375,14 +1276,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="reservation_dates">
-            <EntityTypeMapping TypeName="Model.reservation_dates">
-              <MappingFragment StoreEntitySet="reservation_dates">
-                <ScalarProperty Name="RESERVATION_ID" ColumnName="RESERVATION_ID" />
-                <ScalarProperty Name="DATE_ID" ColumnName="DATE_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="reservations">
             <EntityTypeMapping TypeName="Model.reservations">
               <MappingFragment StoreEntitySet="reservations">
@@ -1393,6 +1286,8 @@
                 <ScalarProperty Name="EVENT_ID" ColumnName="EVENT_ID" />
                 <ScalarProperty Name="ACCEPTER_ID" ColumnName="ACCEPTER_ID" />
                 <ScalarProperty Name="ACCEPTED" ColumnName="ACCEPTED" />
+                <ScalarProperty Name="START" ColumnName="START" />
+                <ScalarProperty Name="END" ColumnName="END" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1422,6 +1317,7 @@
                 <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
                 <ScalarProperty Name="FACILITIES_ID" ColumnName="FACILITIES_ID" />
                 <ScalarProperty Name="TRAINING_ID" ColumnName="TRAINING_ID" />
+                <ScalarProperty Name="BASE_PRICE" ColumnName="BASE PRICE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

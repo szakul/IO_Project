@@ -30,12 +30,10 @@ namespace SportCenterManager
         public DbSet<cashiers> cashiers { get; set; }
         public DbSet<clients> clients { get; set; }
         public DbSet<coaches> coaches { get; set; }
-        public DbSet<dates> dates { get; set; }
         public DbSet<employees> employees { get; set; }
         public DbSet<events> events { get; set; }
         public DbSet<facilities> facilities { get; set; }
         public DbSet<price_lists> price_lists { get; set; }
-        public DbSet<reservation_dates> reservation_dates { get; set; }
         public DbSet<reservations> reservations { get; set; }
         public DbSet<sales> sales { get; set; }
         public DbSet<schedules> schedules { get; set; }

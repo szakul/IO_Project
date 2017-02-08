@@ -25,6 +25,7 @@ namespace SportCenterManager
         public string DESCRIPTION { get; set; }
         public Nullable<int> FACILITIES_ID { get; set; }
         public Nullable<int> TRAINING_ID { get; set; }
+        public Nullable<int> BASE_PRICE { get; set; }
     
         public virtual trainings trainings { get; set; }
         public virtual ICollection<subscriptions> subscriptions { get; set; }

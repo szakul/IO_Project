@@ -26,12 +26,13 @@ namespace SportCenterManager
         public Nullable<int> EVENT_ID { get; set; }
         public Nullable<int> ACCEPTER_ID { get; set; }
         public Nullable<bool> ACCEPTED { get; set; }
+        public Nullable<System.DateTime> START { get; set; }
+        public Nullable<System.DateTime> END { get; set; }
     
         public virtual admins admins { get; set; }
         public virtual employees employees { get; set; }
         public virtual events events { get; set; }
         public virtual facilities facilities { get; set; }
-        public virtual reservation_dates reservation_dates { get; set; }
         public virtual trainings trainings { get; set; }
         public virtual ICollection<schedules> schedules { get; set; }
     }

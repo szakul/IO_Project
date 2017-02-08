@@ -26,6 +26,7 @@ namespace SportCenterManager
         public string PIN { get; set; }
         public string SEX { get; set; }
         public Nullable<int> ACCOUNT_ID { get; set; }
+        public Nullable<int> MONEY { get; set; }
     
         public virtual accounts accounts { get; set; }
         public virtual ICollection<sales> sales { get; set; }
