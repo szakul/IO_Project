@@ -1,0 +1,8 @@
+- zainstaluj mysqlworkbench z https://www.mysql.com/products/workbench/
+- skopiuj pliki z gita na dysk https://github.com/szakul/IO_Project
+- oworz plik io.mwb
+- Database -> Forward Engeener... -> next -> next -> next
+- W karcie Local instance zaznacz baze osrodeksportowydb
+- Nowe zapytanie: set global optimizer_switch='derived_merge=off'
+- Stworz nowego u¿ytkownika username: io_admin pass: IO_Database
+- Patrz jak aplikacja smiga
