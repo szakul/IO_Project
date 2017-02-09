@@ -76,6 +76,14 @@
     <Compile Include="coaches.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="CoachWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CoachWindow.Designer.cs">
+      <DependentUpon>CoachWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CoachWindowController.cs" />
+    <Compile Include="CoachWindowData.cs" />
     <Compile Include="DataModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -111,6 +119,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportReservationEventArgs.cs" />
     <Compile Include="reservations.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
@@ -132,6 +141,9 @@
     <Compile Include="trainings.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="CoachWindow.resx">
+      <DependentUpon>CoachWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>
