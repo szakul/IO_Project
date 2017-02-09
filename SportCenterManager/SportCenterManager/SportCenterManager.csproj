@@ -100,6 +100,13 @@
     <Compile Include="facilities.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="LoginWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoginWindow.Designer.cs">
+      <DependentUpon>LoginWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LoginWindowController.cs" />
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -123,6 +130,7 @@
     <Compile Include="services.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="SignInRequestEventArgs.cs" />
     <Compile Include="subscriptions.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
@@ -132,6 +140,9 @@
     <Compile Include="trainings.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="LoginWindow.resx">
+      <DependentUpon>LoginWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>
