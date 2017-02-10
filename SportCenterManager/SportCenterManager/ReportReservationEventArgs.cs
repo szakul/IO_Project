@@ -11,17 +11,15 @@ namespace SportCenterManager
         public string Name { get; }
         public string Description { get; }
         public int FacilityListIndex { get; }
-        public Dictionary<DayOfWeek, Tuple<DateTime, DateTime>> WeekSchedule { get; }
         public DateTime Start { get; }
         public DateTime End { get; }
 
-        public ReservationRequestEventArgs(string name, string description, int facilityListIndex, DateTime start, DateTime end, Dictionary<DayOfWeek, Tuple<DateTime, DateTime>> weekSchedule)
+        public ReservationRequestEventArgs(string name, string description, int facilityListIndex, DateTime start, DateTime end)
         {
             Name = name;
             Description = description;
-            Start = start;
-            End = end;
-            WeekSchedule = weekSchedule;
+            Start = start.Date;
+            End = end.Date;
         }
     }
 }

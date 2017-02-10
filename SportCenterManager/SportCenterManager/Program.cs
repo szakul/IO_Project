@@ -16,7 +16,6 @@ namespace SportCenterManager
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
             CoachWindowController controller = new CoachWindowController();
             Application.Run(controller.View);
         }

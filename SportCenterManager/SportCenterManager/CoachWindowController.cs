@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SportCenterManager;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace SportCenterManager
     class CoachWindowController
     {
         private CoachWindow view;
-        private CoachWindowData data;
+        private CoachWindowModel model;
 
         public CoachWindow View
         {
@@ -23,42 +24,34 @@ namespace SportCenterManager
 
         public CoachWindowController()
         {
-            data = new CoachWindowData(GetFacilities());
-            view = new CoachWindow(data);
-            view.displayFacilities();
-            view.ReservationRequested += ReportReservation;
+            model = new CoachWindowModel();
+            view = new CoachWindow(model);
+            SubscribeWindowEvents();
+            view.DisplayContent();
         }
 
-        private void CreateNewTraining()
+        private void SubscribeWindowEvents()
         {
-
+            view.ReservationRequested += ReportReservation;
+            view.WeekScheduleChange += ChangeWeekSchedule;
         }
+
+
+
+        private void ChangeWeekSchedule(object sender, WeekScheduleChangedEventArgs eventArgs)
+        {
+            model.ChangeWeekSchedule(eventArgs);
+            view.DisplayWeekSchedule();
+        }
+
+       
+
 
         private void ReportReservation(object sender, ReservationRequestEventArgs requestData)
         {
-            trainings training1 = new trainings();
-            training1.NAME = requestData.Name;
-            training1.DESCRIPTION = requestData.Description;
 
-            trainings training = new trainings();
-            training.NAME = requestData.Name;
-            training.DESCRIPTION = requestData.Description;
-
-            using (var context = new DatabaseConnection())
-            {
-                context.trainings.Add(training);
-                context.trainings.Add(training1);
-            }
         }
 
-        public List<facilities> GetFacilities()
-        {
-            List<facilities> facilitiesList = null;
-            using (var context = new DatabaseConnection())
-            {
-                facilitiesList = context.facilities.ToList();
-            }
-            return facilitiesList;
-        }
+
     }
 }

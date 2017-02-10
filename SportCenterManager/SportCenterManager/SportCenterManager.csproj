@@ -120,6 +120,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReportReservationEventArgs.cs" />
+    <Compile Include="ReservationCreator.cs" />
     <Compile Include="reservations.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
@@ -141,6 +142,13 @@
     <Compile Include="trainings.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="WeekDayCheckBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WeekDayHourPicker.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WeekScheduleChangedEventArgs.cs" />
     <EmbeddedResource Include="CoachWindow.resx">
       <DependentUpon>CoachWindow.cs</DependentUpon>
     </EmbeddedResource>
