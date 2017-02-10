@@ -20,21 +20,29 @@ namespace SportCenterManager
             this.data = data;
             InitializeComponent();
             BindEvents();
+
+            
+        }
+
+        public void SetReservationsDataSource(List<reservations> reservationDataSouce)
+        {
+            dataGridView1.DataSource = reservationDataSouce;
         }
 
         public void DisplayContent()
         {
             DisplayAccountInfo();
-            displayFacilities();
+            DisplayFacilities();
             DisplayWeekSchedule();
         }
 
         public void DisplayAccountInfo()
         {
-            if(data.Coach != null)
+            if(data.Account != null)
             {
-                loginInfo.Text = data.Coach.employees.accounts.LOGIN;
+                loginInfo.Text = data.Account.LOGIN;
             }          
+           
         }
 
         public void DisplayWeekSchedule()
@@ -67,11 +75,12 @@ namespace SportCenterManager
             }
         }
 
-        public void displayFacilities()
+        public void DisplayFacilities()
         {
+            facilityComboBox.Items.Clear();
             foreach (facilities facility in data.Facilities)
             {
-                this.facilityComboBox.Items.Add(facility.NAME);
+                facilityComboBox.Items.Add(facility.NAME);
             }
         }
 
@@ -103,7 +112,7 @@ namespace SportCenterManager
 
         private void OnWeekScheduleChange(object sender, EventArgs args)
         {
-            WeekScheduleChange.Invoke(sender, new WeekScheduleChangedEventArgs(weekDayPanel, startTimePanel, endTimePanel));
+            WeekScheduleChange?.Invoke(sender, new WeekScheduleChangedEventArgs(weekDayPanel, startTimePanel, endTimePanel));
         }
 
         private void OnReportReservationButtonClick(object sender, EventArgs args)
@@ -115,32 +124,12 @@ namespace SportCenterManager
             DateTime end = toDatePicker.Value;
 
             ReservationRequestEventArgs eventArgs = new ReservationRequestEventArgs(name, description, facilityListIndex, start, end);
-            ReservationRequested.Invoke(sender, eventArgs);
+            ReservationRequested?.Invoke(sender, eventArgs);
         }
 
         public delegate void WeekScheduleChangeEventHandler(object sender, WeekScheduleChangedEventArgs e);
         public delegate void ReservationRequestEventHandler(object sender, ReservationRequestEventArgs e);
         public event ReservationRequestEventHandler ReservationRequested;
         public event WeekScheduleChangeEventHandler WeekScheduleChange;
-
-        private void weekDayHourPicker14_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void weekDayHourPicker11_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void weekDayHourPicker9_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void weekDayHourPicker10_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }

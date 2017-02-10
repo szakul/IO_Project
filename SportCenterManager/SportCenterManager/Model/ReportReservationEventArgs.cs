@@ -18,6 +18,7 @@ namespace SportCenterManager
         {
             Name = name;
             Description = description;
+            FacilityListIndex = facilityListIndex;
             Start = start.Date;
             End = end.Date;
         }
