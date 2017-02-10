@@ -107,11 +107,11 @@
       <DependentUpon>LoginWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="LoginWindowController.cs" />
-    <Compile Include="MainWindow.cs">
+    <Compile Include="AdminWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainWindow.Designer.cs">
-      <DependentUpon>MainWindow.cs</DependentUpon>
+    <Compile Include="AdminWindow.Designer.cs">
+      <DependentUpon>AdminWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="price_lists.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
@@ -143,8 +143,8 @@
     <EmbeddedResource Include="LoginWindow.resx">
       <DependentUpon>LoginWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainWindow.resx">
-      <DependentUpon>MainWindow.cs</DependentUpon>
+    <EmbeddedResource Include="AdminWindow.resx">
+      <DependentUpon>AdminWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

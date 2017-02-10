@@ -11,20 +11,25 @@ using System.Windows.Forms;
 
 namespace SportCenterManager
 {
-    public partial class MainWindow : Form
+    public partial class AdminWindow : Form
     {
-        public MainWindow()
+        public AdminWindow()
         {
             InitializeComponent();
+            //loads facilities to comboBox
+            List<string> facilitiesEssence = new List<string>();
             using (var context = new DatabaseConnection())
             {
                 var reservableFacilities = (from f in context.facilities
-                            where f.RESERVABLE == true
-                            select new {id = f.ID, name = f.NAME}).ToArray();
-                comboBoxEventFacility.Items.AddRange(reservableFacilities);
+                                            where f.RESERVABLE == true
+                                            select f).ToArray();
+                foreach (facilities facility in reservableFacilities)
+                {
+                    facilitiesEssence.Add(facility.ID + ". " + facility.NAME);
+                }
+                comboBoxEventFacility.Items.AddRange(facilitiesEssence.ToArray());
             }
         }
-
         private void button1_Click(object sender, EventArgs e)
         {
             int currentAccountId = 1; //Admin with this id MUST exist in db.
@@ -32,19 +37,24 @@ namespace SportCenterManager
             {
                 events newEvent = new events();
                 reservations newReservation = new reservations();
-                //newEvent.ID = ; u dont have to specify it. It'll be incremented automaticly
                 newEvent.NAME = textBoxEventName.Text;
                 newEvent.DESCRIPTION = textBoxEventDescription.Text;
                 newEvent.CREATOR_ID = currentAccountId;
 
                 newReservation.CREATOR_ID = currentAccountId;
-                newReservation.TRAINING_ID = null;
-                //newReservation.FACILITY_ID = 
-                //newReservation.EVENT_ID = 
+                newReservation.FACILITY_ID = int.Parse(comboBoxEventFacility.SelectedItem.ToString().Split('.')[0]);
+                DateTime tmpDate = dateTimePickerEventDate.Value;
+                DateTime tmpStartTime = dateTimePickerEventStart.Value;
+                DateTime tmpEndTime = dateTimePickerEventEnd.Value;
+                newReservation.START = tmpDate.Date.Add(tmpStartTime.TimeOfDay);
+                newReservation.END = tmpDate.Date.Add(tmpEndTime.TimeOfDay);
 
                 using (var context = new DatabaseConnection())
                 {
                     context.events.Add(newEvent);
+                    context.SaveChanges();
+                    newReservation.EVENT_ID = newEvent.ID;
+                    context.reservations.Add(newReservation);
                     context.SaveChanges();
                 }
             }
@@ -53,18 +63,10 @@ namespace SportCenterManager
                 //shuold be checked for nulls. And there is probably a better way to get DB exception.
                 MessageBox.Show(ex.Message + "\n" + ex.InnerException.InnerException.Message);
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
-
-
-        //private void button1_Click(object sender, EventArgs e)
-        //{
-        //    using (var context = new DatabaseConnection())
-        //    {
-        //        var t = context.trainings.Find(1);
-        //        textBoxEventName.Text = t.ID + " " + t.NAME + " " + t.DESCRIPTION;
-        //    }
-        //}
-
-
     }
 }

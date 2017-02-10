@@ -1,6 +1,6 @@
 ﻿namespace SportCenterManager
 {
-    partial class MainWindow
+    partial class AdminWindow
     {
         /// <summary>
         /// Required designer variable.
