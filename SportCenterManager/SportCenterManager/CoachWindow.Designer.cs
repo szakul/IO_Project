@@ -190,7 +190,7 @@
             this.groupBox2.TabIndex = 10;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Okres rezerwacji";
-            this.groupBox2.Enter += new System.EventHandler(this.groupBox2_Enter);
+         
             // 
             // label13
             // 
@@ -286,7 +286,7 @@
             this.label8.TabIndex = 30;
             this.label8.Text = " - ";
             this.label8.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.label8.Click += new System.EventHandler(this.label8_Click);
+ 
             // 
             // dateTimePicker12
             // 

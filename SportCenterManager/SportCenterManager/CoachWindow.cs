@@ -19,6 +19,7 @@ namespace SportCenterManager
         {
             this.data = data;
             InitializeComponent();
+            BindEvents();
         }
 
         public void displayFacilities()
@@ -27,45 +28,62 @@ namespace SportCenterManager
             {
                 this.facilityComboBox.Items.Add(facility.NAME);
             }
-            test();
         }
 
         private void BindEvents()
         {
-            
+            reportReservationButton.Click += OnReportReservationButtonClick;
         }
 
-        private void test()
+        private Dictionary<DayOfWeek, Tuple<DateTime, DateTime>> GetWeekSchedule()
         {
-            IEnumerable<CheckBox> a = (IEnumerable<CheckBox>)weekDayPanel.Controls;
-            ;
-            ;
+            Dictionary<DayOfWeek, Tuple<DateTime, DateTime>> weekSchedule = new Dictionary<DayOfWeek, Tuple<DateTime, DateTime>>();
+            Array daysOfWeek = Enum.GetValues(typeof(DayOfWeek));
 
-             
+            for (int i = 0; i < weekDayPanel.Controls.Count; i++)
+            {
+                Tuple<DateTime, DateTime> timePeriod;
+                CheckBox checkbox = weekDayPanel.Controls[i] as CheckBox;
+                if (checkbox != null)
+                {
+                    if (checkbox.Checked)
+                    {
+                        DateTime start = DateTime.MinValue;
+                        DateTime end = DateTime.MinValue;
+
+                        var datePicker = startTimePanel.Controls[i] as DateTimePicker;
+                        if (datePicker != null)
+                        {
+                            start = datePicker.Value;
+                        }
+                        datePicker = endTimePanel.Controls[i] as DateTimePicker;
+                        if (datePicker != null)
+                        {
+                            end = datePicker.Value;
+                        }
+                        timePeriod = new Tuple<DateTime, DateTime>(start, end);
+                        weekSchedule.Add((DayOfWeek)daysOfWeek.GetValue(i), timePeriod);
+                    }
+                }
+            }
+            return weekSchedule;
         }
 
 
-        private void OnReservationRequest()
+        private void OnReportReservationButtonClick(object sender, EventArgs args)
         {
             string name = nameTextBox.Text;
             string description = descriptionTextBox.Text;
             int facilityListIndex = facilityComboBox.SelectedIndex;
             DateTime start = fromDatePicker.Value;
             DateTime end = toDatePicker.Value;
-            ReservationRequestEventArgs e = new ReservationRequestEventArgs(name, description, facilityListIndex, start, end);
+            Dictionary<DayOfWeek, Tuple<DateTime, DateTime>> weekSchedule = GetWeekSchedule();
+
+            ReservationRequestEventArgs eventArgs = new ReservationRequestEventArgs(name, description, facilityListIndex, start, end, weekSchedule);
+            ReservationRequested.Invoke(sender, eventArgs);
         }
 
         public delegate void ReservationRequestEventHandler(object sender, ReservationRequestEventArgs e);
         public event ReservationRequestEventHandler ReservationRequested;
-
-        private void groupBox2_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label8_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }
