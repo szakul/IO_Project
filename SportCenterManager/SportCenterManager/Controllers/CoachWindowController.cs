@@ -27,29 +27,45 @@ namespace SportCenterManager
         {
             model = new CoachWindowModel();
             view = new CoachWindow(model);
-           
+
             //Change this later, so controller will be getting account as parameter
             using (var context = new DatabaseConnection())
             {
                 model.Account = context.accounts.Where(i => i.ID == 2).ToList().First();
             }
 
-            model.UpdateReservations();
-            view.SetReservationsDataSource(model.Reservations);
+            model.UpdateDataGrid();
+            view.SetDataGridsDataSource(model.DataGridItems);
             view.DisplayContent();
             SubscribeWindowEvents();
         }
 
         private void SubscribeWindowEvents()
         {
-            view.ReservationRequested += ReportReservation;
+            view.ReservationRequest += ReportReservation;
             view.WeekScheduleChange += ChangeWeekSchedule;
+            view.LogOutRequest += LogOut;
         }
 
         private void ChangeWeekSchedule(object sender, WeekScheduleChangedEventArgs weekScheduleChangeData)
         {
-            model.ChangeWeekSchedule(weekScheduleChangeData);
-            view.DisplayContent();
+            try
+            {
+                model.ChangeWeekSchedule(weekScheduleChangeData);
+            }
+            catch (InvalidTimePeriodException ex)
+            {
+                MessageBox.Show("Proszę wybrać poprawny przedział czasu!");
+            }
+            finally
+            {
+                view.DisplayContent();
+            }
+        }
+
+        private void LogOut(object sender, EventArgs eventArgs)
+        {
+            MessageBox.Show("qwqwq");
         }
 
         private void ReportReservation(object sender, ReservationRequestEventArgs requestData)
@@ -57,12 +73,16 @@ namespace SportCenterManager
             try
             {
                 model.ReportReservation(requestData);
-                model.UpdateReservations();
-                view.SetReservationsDataSource(model.Reservations);
+                model.UpdateDataGrid();
+                view.SetDataGridsDataSource(model.DataGridItems);
             }
-            catch(FacilityNotChoosenException ex)
+            catch (FacilityNotChoosenException ex)
             {
                 MessageBox.Show("Musisz wybrać obiekt na którym będą odbywały się zajęcia!");
+            }
+            catch (InvalidTimePeriodException ex)
+            {
+                MessageBox.Show("Proszę wybrać poprawny przedział czasu!");
             }
         }
 

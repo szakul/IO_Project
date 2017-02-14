@@ -1,5 +1,4 @@
 ﻿using SportCenterManager.Exceptions;
-using SportCenterManager.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +12,9 @@ namespace SportCenterManager
     {
         public List<facilities> Facilities { get; set; }
         public Dictionary<DayOfWeek, Tuple<DateTime, DateTime>> WeekSchedule { get; set; }
-        public List<reservations> Reservations { get; set; }
+        //public List<reservations> Reservations { get; set; }
         public accounts Account { get; set; }
-       // public List<DataGridRow> { get; set; }
+        public IList<DataGridRow> DataGridItems { get; set; }
 
 
         public CoachWindowModel()
@@ -24,12 +23,13 @@ namespace SportCenterManager
             WeekSchedule = new Dictionary<DayOfWeek, Tuple<DateTime, DateTime>>();
         }
 
-        public void UpdateReservations()
+        public void UpdateDataGrid()
         {
             using (var context = new DatabaseConnection())
             {
-                var employee = context.employees.Where(i => i.ACCOUNT_ID == Account.ID).FirstOrDefault();
-                Reservations = context.reservations.Where(i => i.CREATOR_ID == employee.ID).ToList();
+                int? creatorId = context.employees.Where(i => i.ACCOUNT_ID == Account.ID).Select(i => i.ID).FirstOrDefault();
+                DataGridRowsBuilder rowsCreator = new DataGridRowsBuilder();
+                DataGridItems = rowsCreator.LoadFromDatabase(context, creatorId);             
             }
         }
 
@@ -72,6 +72,10 @@ namespace SportCenterManager
                         {
                             end = datePicker.Value;
                         }
+
+                        if (end > start)
+                            throw new InvalidTimePeriodException();
+
                         timePeriod = new Tuple<DateTime, DateTime>(start, end);
                         weekSchedule.Add(weekDayCheckBox.AssociatedDay, timePeriod);
                     }
@@ -98,6 +102,9 @@ namespace SportCenterManager
 
         public void ReportReservation(ReservationRequestEventArgs requestData)
         {
+            if (requestData.End < requestData.Start)
+                throw new InvalidTimePeriodException();
+
             using (var context = new DatabaseConnection())
             {
                 var creator = context.employees.Where(i => i.ACCOUNT_ID == Account.ID).FirstOrDefault();

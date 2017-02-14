@@ -19,14 +19,12 @@ namespace SportCenterManager
         {
             this.data = data;
             InitializeComponent();
-            BindEvents();
-
-            
+            BindEvents();           
         }
 
-        public void SetReservationsDataSource(List<reservations> reservationDataSouce)
+        public void SetDataGridsDataSource(IList<DataGridRow> dataGridRows)
         {
-            dataGridView1.DataSource = reservationDataSouce;
+            dataGridView1.DataSource = dataGridRows;
         }
 
         public void DisplayContent()
@@ -86,6 +84,7 @@ namespace SportCenterManager
 
         private void BindEvents()
         {
+            logOutButton.Click += OnLogOutRequest;
             reportReservationButton.Click += OnReportReservationButtonClick;
             BindWeekSchedulePanelEvents(weekDayPanel, OnWeekScheduleChange);
             BindWeekSchedulePanelEvents(startTimePanel, OnWeekScheduleChange);
@@ -109,6 +108,10 @@ namespace SportCenterManager
             }
         }
 
+        private void OnLogOutRequest(object sender, EventArgs args)
+        {
+            LogOutRequest.Invoke(this, EventArgs.Empty);
+        }
 
         private void OnWeekScheduleChange(object sender, EventArgs args)
         {
@@ -124,12 +127,13 @@ namespace SportCenterManager
             DateTime end = toDatePicker.Value;
 
             ReservationRequestEventArgs eventArgs = new ReservationRequestEventArgs(name, description, facilityListIndex, start, end);
-            ReservationRequested?.Invoke(sender, eventArgs);
+            ReservationRequest?.Invoke(sender, eventArgs);
         }
 
         public delegate void WeekScheduleChangeEventHandler(object sender, WeekScheduleChangedEventArgs e);
         public delegate void ReservationRequestEventHandler(object sender, ReservationRequestEventArgs e);
-        public event ReservationRequestEventHandler ReservationRequested;
+        public event EventHandler LogOutRequest;
+        public event ReservationRequestEventHandler ReservationRequest;
         public event WeekScheduleChangeEventHandler WeekScheduleChange;
     }
 }

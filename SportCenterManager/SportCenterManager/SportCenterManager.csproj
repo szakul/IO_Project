@@ -76,6 +76,9 @@
     <Compile Include="coaches.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\DataGridRow.cs" />
+    <Compile Include="Model\DataGridRowsBuilder.cs" />
+    <Compile Include="Exceptions\InvalidTimePeriodException.cs" />
     <Compile Include="Views\CoachWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -164,8 +167,7 @@
       <DependentUpon>DataModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
-    <None Include="Properties\DataSources\CoachWindowModel.datasource" />
-    <None Include="Properties\DataSources\reservations.datasource" />
+    <None Include="Properties\DataSources\DataGridRow.datasource" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
