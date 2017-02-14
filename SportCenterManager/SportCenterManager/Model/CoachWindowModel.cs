@@ -1,4 +1,5 @@
 ﻿using SportCenterManager.Exceptions;
+using SportCenterManager.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,8 @@ namespace SportCenterManager
         public Dictionary<DayOfWeek, Tuple<DateTime, DateTime>> WeekSchedule { get; set; }
         public List<reservations> Reservations { get; set; }
         public accounts Account { get; set; }
+       // public List<DataGridRow> { get; set; }
+
 
         public CoachWindowModel()
         {
