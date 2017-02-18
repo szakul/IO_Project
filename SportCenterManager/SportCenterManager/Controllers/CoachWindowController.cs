@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace SportCenterManager
 {
-    class CoachWindowController
+    class CoachWindowController : Controller
     {
         private CoachWindow view;
         private CoachWindowModel model;
@@ -23,17 +23,12 @@ namespace SportCenterManager
             }
         }
 
-        public CoachWindowController()
+        public CoachWindowController(accounts account)
         {
             model = new CoachWindowModel();
             view = new CoachWindow(model);
 
-            //Change this later, so controller will be getting account as parameter
-            using (var context = new DatabaseConnection())
-            {
-                model.Account = context.accounts.Where(i => i.ID == 2).ToList().First();
-            }
-
+            model.Account = account;
             model.UpdateDataGrid();
             view.SetDataGridsDataSource(model.DataGridItems);
             view.DisplayContent();
@@ -44,7 +39,8 @@ namespace SportCenterManager
         {
             view.ReservationRequest += ReportReservation;
             view.WeekScheduleChange += ChangeWeekSchedule;
-            view.LogOutRequest += LogOut;
+            view.FormClosed += ReturnControl;
+            view.LogOutRequest += (object sender, EventArgs e) => { CloseView(); ReturnControl(sender, e); };
         }
 
         private void ChangeWeekSchedule(object sender, WeekScheduleChangedEventArgs weekScheduleChangeData)
@@ -63,9 +59,14 @@ namespace SportCenterManager
             }
         }
 
-        private void LogOut(object sender, EventArgs eventArgs)
+        public override void ShowView()
         {
-            MessageBox.Show("qwqwq");
+            View.Show();
+        }
+
+        public override void CloseView()
+        {
+            View.Close();
         }
 
         private void ReportReservation(object sender, ReservationRequestEventArgs requestData)
@@ -85,7 +86,5 @@ namespace SportCenterManager
                 MessageBox.Show("Proszę wybrać poprawny przedział czasu!");
             }
         }
-
-
     }
 }

@@ -8,9 +8,10 @@ using System.Windows.Forms;
 namespace SportCenterManager
 {
 
-    class LoginWindowController
+    class LoginWindowController : Controller
     {
         public LoginWindow View { get; }
+        private accounts account = null;
         private bool switchToAdminPanel = false;
         private bool switchToCoachPanel = false;
 
@@ -20,9 +21,9 @@ namespace SportCenterManager
             SubscribeWindowEvents();
         }
 
-        public void SubscribeWindowEvents()
+        private void SubscribeWindowEvents()
         {
-            View.SignInRequest += (object sender, SignInRequestEventArgs e) => { SignIn(e.Login, e.Password); SwitchController(); };
+            View.SignInRequest += OnSignInRequest;
         }
 
         private bool IsCoachAccount(int employeeId, DatabaseConnection context)
@@ -44,35 +45,63 @@ namespace SportCenterManager
 
         private void SwitchController()
         {
+            Controller newController = null;
+
             if (switchToCoachPanel)
             {
-                MessageBox.Show("swith to coach panel!");
-                //TODO: swith to coach panel
+                newController = new CoachWindowController(account);
             }
             else if (switchToAdminPanel)
             {
-                MessageBox.Show(" switch to admin panel!");
+                throw new NotImplementedException();
                 //TODO: switch to admin panel
             }
 
+            newController.ShowView();
+            newController.ReturnControlRequest += OnReturnControl;
+
             switchToAdminPanel = false;
             switchToCoachPanel = false;
+            account = null;
         }
 
+        private void OnReturnControl(object sender, EventArgs e)
+        {
+            View.Visible = true; //Login window is active again
+        }
 
+        private void OnSignInRequest(object sender, SignInRequestEventArgs e)
+        {
+            if(IsAccountValid(e.Login, e.Password))
+            {
+                View.Visible = false;
+                SwitchController();
+            }
+        }
 
-        public void SignIn(string login, string password)
+        public override void CloseView()
+        {
+            View.Close();
+        }
+
+        public override void ShowView()
+        {
+            View.Show();
+        }
+
+        private bool IsAccountValid(string login, string password)
         {
             try
             {
                 using (var context = new DatabaseConnection())
                 {
-                    accounts account = context.accounts.Where(i => (i.LOGIN == login)).First();
+                    accounts account = context.accounts.Where(i => (i.LOGIN == login)).ToList().First();
                     if (IsPasswordValid(account, password, context))
                     {
                         employees employee = context.employees.Find(account.ID);
                         if (employee != null) // Employee found
                         {
+                            this.account = account;
                             switchToAdminPanel = IsAdminAccount(employee.ID, context);
                             switchToCoachPanel = IsCoachAccount(employee.ID, context);
                         }
@@ -87,6 +116,8 @@ namespace SportCenterManager
             {
                 MessageBox.Show("Account not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+
+            return switchToAdminPanel || switchToCoachPanel;
         }
     }
 }

@@ -57,11 +57,14 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Accepted = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Start = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.End = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label12 = new System.Windows.Forms.Label();
             this.loginInfo = new System.Windows.Forms.Label();
             this.logOutButton = new System.Windows.Forms.Button();
             this.facilitiesBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.weekDayHourPicker14 = new SportCenterManager.WeekDayHourPicker();
             this.weekDayHourPicker13 = new SportCenterManager.WeekDayHourPicker();
             this.weekDayHourPicker12 = new SportCenterManager.WeekDayHourPicker();
@@ -83,18 +86,15 @@
             this.checkBoxZ5 = new SportCenterManager.WeekDayCheckBox();
             this.checkBoxZ3 = new SportCenterManager.WeekDayCheckBox();
             this.checkBoxZ4 = new SportCenterManager.WeekDayCheckBox();
+            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.trainingNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.facilityNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridRowBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.coachWindowModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.reservationsBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.reservationsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.coachWindowModelBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.adminsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.trainingNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.facilityNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Accepted = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Start = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.End = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -105,8 +105,8 @@
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.facilitiesBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.facilitiesBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridRowBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.coachWindowModelBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.reservationsBindingSource1)).BeginInit();
@@ -414,6 +414,46 @@
             this.tabPage2.Text = "Przeglądaj rezerwacje";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AutoGenerateColumns = false;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.idDataGridViewTextBoxColumn,
+            this.trainingNameDataGridViewTextBoxColumn,
+            this.facilityNameDataGridViewTextBoxColumn,
+            this.Accepted,
+            this.Start,
+            this.End});
+            this.dataGridView1.DataSource = this.dataGridRowBindingSource;
+            this.dataGridView1.Location = new System.Drawing.Point(4, 5);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(727, 403);
+            this.dataGridView1.TabIndex = 0;
+            // 
+            // Accepted
+            // 
+            this.Accepted.DataPropertyName = "Accepted";
+            this.Accepted.HeaderText = "Accepted";
+            this.Accepted.Name = "Accepted";
+            this.Accepted.ReadOnly = true;
+            // 
+            // Start
+            // 
+            this.Start.DataPropertyName = "Start";
+            this.Start.HeaderText = "Start";
+            this.Start.Name = "Start";
+            this.Start.ReadOnly = true;
+            this.Start.Width = 120;
+            // 
+            // End
+            // 
+            this.End.DataPropertyName = "End";
+            this.End.HeaderText = "End";
+            this.End.Name = "End";
+            this.End.ReadOnly = true;
+            this.End.Width = 120;
+            // 
             // label12
             // 
             this.label12.AutoSize = true;
@@ -444,23 +484,6 @@
             // 
             this.facilitiesBindingSource.DataMember = "Facilities";
             this.facilitiesBindingSource.DataSource = this.coachWindowModelBindingSource;
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.AutoGenerateColumns = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.idDataGridViewTextBoxColumn,
-            this.trainingNameDataGridViewTextBoxColumn,
-            this.facilityNameDataGridViewTextBoxColumn,
-            this.Accepted,
-            this.Start,
-            this.End});
-            this.dataGridView1.DataSource = this.dataGridRowBindingSource;
-            this.dataGridView1.Location = new System.Drawing.Point(4, 5);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(727, 403);
-            this.dataGridView1.TabIndex = 0;
             // 
             // weekDayHourPicker14
             // 
@@ -707,6 +730,27 @@
             this.checkBoxZ4.Text = "Czwartek";
             this.checkBoxZ4.UseVisualStyleBackColor = true;
             // 
+            // idDataGridViewTextBoxColumn
+            // 
+            this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
+            this.idDataGridViewTextBoxColumn.HeaderText = "Id";
+            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            this.idDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // trainingNameDataGridViewTextBoxColumn
+            // 
+            this.trainingNameDataGridViewTextBoxColumn.DataPropertyName = "TrainingName";
+            this.trainingNameDataGridViewTextBoxColumn.HeaderText = "Training";
+            this.trainingNameDataGridViewTextBoxColumn.Name = "trainingNameDataGridViewTextBoxColumn";
+            this.trainingNameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // facilityNameDataGridViewTextBoxColumn
+            // 
+            this.facilityNameDataGridViewTextBoxColumn.DataPropertyName = "FacilityName";
+            this.facilityNameDataGridViewTextBoxColumn.HeaderText = "Facility";
+            this.facilityNameDataGridViewTextBoxColumn.Name = "facilityNameDataGridViewTextBoxColumn";
+            this.facilityNameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
             // dataGridRowBindingSource
             // 
             this.dataGridRowBindingSource.DataSource = typeof(SportCenterManager.DataGridRow);
@@ -730,50 +774,6 @@
             // adminsBindingSource
             // 
             this.adminsBindingSource.DataSource = typeof(SportCenterManager.admins);
-            // 
-            // idDataGridViewTextBoxColumn
-            // 
-            this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
-            this.idDataGridViewTextBoxColumn.HeaderText = "Id";
-            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-            this.idDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // trainingNameDataGridViewTextBoxColumn
-            // 
-            this.trainingNameDataGridViewTextBoxColumn.DataPropertyName = "TrainingName";
-            this.trainingNameDataGridViewTextBoxColumn.HeaderText = "Training";
-            this.trainingNameDataGridViewTextBoxColumn.Name = "trainingNameDataGridViewTextBoxColumn";
-            this.trainingNameDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // facilityNameDataGridViewTextBoxColumn
-            // 
-            this.facilityNameDataGridViewTextBoxColumn.DataPropertyName = "FacilityName";
-            this.facilityNameDataGridViewTextBoxColumn.HeaderText = "Facility";
-            this.facilityNameDataGridViewTextBoxColumn.Name = "facilityNameDataGridViewTextBoxColumn";
-            this.facilityNameDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // Accepted
-            // 
-            this.Accepted.DataPropertyName = "Accepted";
-            this.Accepted.HeaderText = "Accepted";
-            this.Accepted.Name = "Accepted";
-            this.Accepted.ReadOnly = true;
-            // 
-            // Start
-            // 
-            this.Start.DataPropertyName = "Start";
-            this.Start.HeaderText = "Start";
-            this.Start.Name = "Start";
-            this.Start.ReadOnly = true;
-            this.Start.Width = 120;
-            // 
-            // End
-            // 
-            this.End.DataPropertyName = "End";
-            this.End.HeaderText = "End";
-            this.End.Name = "End";
-            this.End.ReadOnly = true;
-            this.End.Width = 120;
             // 
             // CoachWindow
             // 
@@ -801,8 +801,8 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.facilitiesBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.facilitiesBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridRowBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.coachWindowModelBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.reservationsBindingSource1)).EndInit();

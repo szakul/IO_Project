@@ -31,6 +31,8 @@ namespace SportCenterManager
         }
 
 
+
+
         public delegate void SignInRequestEventHandler(object sender, SignInRequestEventArgs e);
         public event SignInRequestEventHandler SignInRequest;
     }

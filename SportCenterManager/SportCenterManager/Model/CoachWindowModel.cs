@@ -12,7 +12,6 @@ namespace SportCenterManager
     {
         public List<facilities> Facilities { get; set; }
         public Dictionary<DayOfWeek, Tuple<DateTime, DateTime>> WeekSchedule { get; set; }
-        //public List<reservations> Reservations { get; set; }
         public accounts Account { get; set; }
         public IList<DataGridRow> DataGridItems { get; set; }
 
@@ -73,7 +72,7 @@ namespace SportCenterManager
                             end = datePicker.Value;
                         }
 
-                        if (end > start)
+                        if (end < start)
                             throw new InvalidTimePeriodException();
 
                         timePeriod = new Tuple<DateTime, DateTime>(start, end);

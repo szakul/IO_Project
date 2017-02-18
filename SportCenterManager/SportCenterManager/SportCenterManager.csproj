@@ -76,6 +76,7 @@
     <Compile Include="coaches.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\Controller.cs" />
     <Compile Include="Model\DataGridRow.cs" />
     <Compile Include="Model\DataGridRowsBuilder.cs" />
     <Compile Include="Exceptions\InvalidTimePeriodException.cs" />
@@ -112,18 +113,14 @@
     <Compile Include="facilities.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
-<<<<<<< HEAD
-    <Compile Include="LoginWindow.cs">
+    <Compile Include="Views\LoginWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LoginWindow.Designer.cs">
+    <Compile Include="Views\LoginWindow.Designer.cs">
       <DependentUpon>LoginWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="LoginWindowController.cs" />
-    <Compile Include="MainWindow.cs">
-=======
+    <Compile Include="Controllers\LoginWindowController.cs" />
     <Compile Include="Views\MainWindow.cs">
->>>>>>> CoachWindow
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\MainWindow.Designer.cs">
@@ -148,7 +145,7 @@
     <Compile Include="services.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="SignInRequestEventArgs.cs" />
+    <Compile Include="Model\SignInRequestEventArgs.cs" />
     <Compile Include="subscriptions.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
@@ -158,13 +155,9 @@
     <Compile Include="trainings.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
-<<<<<<< HEAD
-    <EmbeddedResource Include="LoginWindow.resx">
+    <EmbeddedResource Include="Views\LoginWindow.resx">
       <DependentUpon>LoginWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainWindow.resx">
-      <DependentUpon>MainWindow.cs</DependentUpon>
-=======
     <Compile Include="CustomControls\WeekDayCheckBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -174,7 +167,6 @@
     <Compile Include="Model\WeekScheduleChangedEventArgs.cs" />
     <EmbeddedResource Include="Views\CoachWindow.resx">
       <DependentUpon>CoachWindow.cs</DependentUpon>
->>>>>>> CoachWindow
     </EmbeddedResource>
     <EmbeddedResource Include="Views\MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
