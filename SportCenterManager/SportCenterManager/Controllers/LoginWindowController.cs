@@ -53,7 +53,7 @@ namespace SportCenterManager
             }
             else if (switchToAdminPanel)
             {
-                throw new NotImplementedException();
+                newController = new AdminWindowControler(account);
                 //TODO: switch to admin panel
             }
 

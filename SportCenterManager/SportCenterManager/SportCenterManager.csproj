@@ -67,6 +67,11 @@
     <Compile Include="admins.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="AdminWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdminWindow.Designer.cs" />
+    <Compile Include="AdminWindowControler.cs" />
     <Compile Include="cashiers.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
@@ -77,6 +82,8 @@
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\Controller.cs" />
+    <Compile Include="DataGridAdminRow.cs" />
+    <Compile Include="DataGridAdminRowBuilder.cs" />
     <Compile Include="Model\DataGridRow.cs" />
     <Compile Include="Model\DataGridRowsBuilder.cs" />
     <Compile Include="Exceptions\InvalidTimePeriodException.cs" />
@@ -155,6 +162,7 @@
     <Compile Include="trainings.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AdminWindow.resx" />
     <EmbeddedResource Include="Views\LoginWindow.resx">
       <DependentUpon>LoginWindow.cs</DependentUpon>
     </EmbeddedResource>

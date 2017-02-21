@@ -76,6 +76,7 @@ namespace SportCenterManager
                 model.ReportReservation(requestData);
                 model.UpdateDataGrid();
                 view.SetDataGridsDataSource(model.DataGridItems);
+                MessageBox.Show("Dodano rezerwację!");
             }
             catch (FacilityNotChoosenException ex)
             {
